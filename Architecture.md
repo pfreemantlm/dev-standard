@@ -45,3 +45,14 @@ Don't Daemonize. Assume the caller will put your processing application into the
 
 Don't require root. Your program doesn't require root.
 
+## Languages and Tools
+
+Everything works on Debian 7 (Wheezy); may use anything in stable apt tree except see below:
+
+* Shell scripts are "shell" scripts and not BASH scripts
+* No Java permitted.
+
+
+
+
+
