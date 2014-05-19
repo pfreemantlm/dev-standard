@@ -26,6 +26,10 @@ log information but may not respond with any meaningful information. This is sui
 
 The application will assume the user is already authenticated.
 
+### Authorization
+
+The application will expose authorization realms using the URL. For example, pages that have "editing" features will have `/edit/` in the URL. This makes it possible to filter at the web server.
+
 
 ## Processing Applications
 
