@@ -28,3 +28,5 @@ infrastructure team. This literature should placed in the "Release" section.
 Some contracts may further require an architecture document produced, while others will have an architecture document provided. This file (if necessary)
 will be in `Architecture.md`
 
+Any external servers required by the application must be enumerated. Failure-planning for each external service must be documented.
+
