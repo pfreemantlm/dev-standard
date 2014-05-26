@@ -103,8 +103,8 @@ The spreadsheet *must* contain these column headers:
 * **Site Name** - Vendor’s name
 * **Start Date**
 * **End Date** - signifies range for the given “flight” - dates should be SQL formatted, eg 2014-01-27
-* **Units - planned number of deliveries for the given date range
-* **Type - the type of Placement; can be one of: 
+* **Units** - planned number of deliveries for the given date range
+* **Type** - the type of Placement; can be one of: 
  * Online Video
  * Display
  * Mobile
@@ -346,7 +346,7 @@ The output shows assignments, minus weighting information, alongside tracking da
 
 
 
-uploadTracking
+## uploadTracking
 
 Imports a spreadsheet of data describing the assignments of Tracking pixels (used to send event notifications to 3rd parties) to Placements, Editions, and Companions. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
 
