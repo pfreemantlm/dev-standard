@@ -105,24 +105,24 @@ The spreadsheet *must* contain these column headers:
 * **End Date** - signifies range for the given “flight” - dates should be SQL formatted, eg 2014-01-27
 * **Units - planned number of deliveries for the given date range
 * **Type - the type of Placement; can be one of: 
-** Online Video
-** Display
-** Mobile
-** Companion
+ * Online Video
+ * Display
+ * Mobile
+ * Companion
 * **Cost Structure** - designates the method of payment for deliveries on the Placement; can be one of: 
-** CPM (cost per 1000 ad deliveries)
-** CPC (cost per ad click)
-** CPE (cost per ad engagement)
-** Fixed
-** Free
+ * CPM (cost per 1000 ad deliveries)
+ * CPC (cost per ad click)
+ * CPE (cost per ad engagement)
+ * Fixed
+ * Free
 * **Rate** - the amount, in USD, of the rate of payment in relation to the provided Cost Structure
 * **Tracking Level** - signifies the integration level of tags produced for this Placement; can be one of: 
-** Integrated
-** VPAID
-** Mid Level
-** Pixel
-** Hulu
-** Hulu and Integrated
+ * Integrated
+ * VPAID
+ * Mid Level
+ * Pixel
+ * Hulu
+ * Hulu and Integrated
 
 The spreadsheet *may* have these column headers:
 
@@ -363,18 +363,18 @@ The spreadsheet *must* contain these column headers:
 * **Placement ID** - Telemetry Guid for the Placement, use getAssignments operation to figure out the correct IDs
 * **Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs
 * **Tracking Type** - the event we want to fire a pixel for; can be one:
-** **Ad Request** (when the ad is requested by the player/hosting site)
-** **Ad Start** (when the ad begins playback)
-** **Click Event** (tracks when the user clicks on the ad)
-** **Clickthrough Landing** (where the user should end up, ie be redirected to, having clicked on the ad)
-** **Ad Completion**
-** **Mouse Over** (the user’s mouse pointer moves over the ad)
-** **Interaction** (the user engages with a specific interactive element)
-** **Interaction Success** (the user succesfully completes an interactive element)
-** **Interaction Mouseover** (the user’s mouse pointer moves over an interactive element)
-** **Interaction Explored** (useful in interactive elements)
-** **Sustained Mouseover** (mouse is held for a particular period of time)
-** **Tracking Pixel** - The 3rd party URL to be fired/redirected to (in the case of Clickthrough Landing event).
+ * **Ad Request** (when the ad is requested by the player/hosting site)
+ * **Ad Start** (when the ad begins playback)
+ * **Click Event** (tracks when the user clicks on the ad)
+ * **Clickthrough Landing** (where the user should end up, ie be redirected to, having clicked on the ad)
+ * **Ad Completion**
+ * **Mouse Over** (the user’s mouse pointer moves over the ad)
+ * **Interaction** (the user engages with a specific interactive element)
+ * **Interaction Success** (the user succesfully completes an interactive element)
+ * **Interaction Mouseover** (the user’s mouse pointer moves over an interactive element)
+ * **Interaction Explored** (useful in interactive elements)
+ * **Sustained Mouseover** (mouse is held for a particular period of time)
+* **Tracking Pixel** - The 3rd party URL to be fired/redirected to (in the case of Clickthrough Landing event).
 
 Some plugins will expose *additional* tracking types. These are always presented in `ALL_UPPERCASE`.
 
