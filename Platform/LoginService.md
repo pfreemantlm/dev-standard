@@ -16,3 +16,5 @@ An example shell-script using CURL follows:
          -H 'Referer: https://gateway.telemetry.com/' \
          --data "u=$username&p=$password" \
          "https://$url?callback=curl"
+
+An acceptable test endpoint is: https://test5823901.telemetry.com
