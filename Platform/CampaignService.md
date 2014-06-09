@@ -29,6 +29,30 @@ Example Output:
       }
     }
 
+
+## getBrands
+
+
+Returns a mapping of ID:Name for all Brands available to the provided Advertiser. A Brand name will be required to create and update Campaign data.
+
+Example Input:
+
+    {
+      "advertiserID": 800001, 
+    }
+
+Example Output:
+
+    {
+      "success":true,
+      "brands":
+      {
+        "970001":"Brand One",
+        "970002":"Brand Two"
+      }
+    }
+
+
 ## manageCampaign
 Creates a new Campaign, or updates an existing Campaign, using the supplied JSON data. Each Campaign is linked to an Advertiser and a Brand, and is a container for Placements used to deliver ads for that Brand. If an ID is supplied for an existing Campaign, that Campaign will be updated (see getCampaigns below to retrieve existing IDs from the system).
 
@@ -84,8 +108,32 @@ Example Output:
         "642002":"Campaign Two [2014]"
       }
     }
+    
+    
+## getVendors
 
-## uploadPlan
+
+Returns a mapping of ID:Name for all on-boarded Vendors available to the provided Advertiser. Vendor names will be required to upload Plan information into a Campaign; the Vendor must be associated with the Advertiser already through the on-boarding process that precedes each Vendor’s involvement in a Campaign.
+
+Example Input:
+
+    {
+      "advertiserID": 800001, 
+    }
+
+Example Output:
+
+    {
+      "success":true,
+      "vendors":
+      {
+        "840001":"Test Vendor 1",
+        "840002":"Test Vendor 2"
+      }
+    }
+
+
+## uploadPlans
 
 Imports a spreadsheet of data into the given campaign, creating Placements and outlining their delivery and spend plans. There are also a number of optional attributes which can be provided to enhance Placement reporting and planning.
 
@@ -356,7 +404,7 @@ Input data only requires a Campaign ID, but a CSV or XLS/XLSX media plan is also
       "campaignID": 642001
     }
 
-Each line in the spreadsheet is used per Tracking Pixel URL we want to assign. Details of the combination to assign to; that is Placement-Edition, or Placement-Edition-Companion; are given alongside the Tracking Event (details below) and Tracking Pixel URL. For multiple URLs, repeat the Event and Assignment for each URL. Please see a [sample trackign sheet](./samples/tracking.xlsx).
+Each line in the spreadsheet is used per Tracking Pixel URL we want to assign. Details of the combination to assign to; that is Placement-Edition, or Placement-Edition-Companion; are given alongside the Tracking Event (details below) and Tracking Pixel URL. For multiple URLs, repeat the Event and Assignment for each URL. Please see a [sample tracking sheet](./samples/tracking.xlsx).
 
 The spreadsheet *must* contain these column headers:
 
