@@ -115,6 +115,8 @@ Example Output:
 
 Returns a mapping of ID:Name for all on-boarded Vendors available to the provided Advertiser. Vendor names will be required to upload Plan information into a Campaign; the Vendor must be associated with the Advertiser already through the on-boarding process that precedes each Vendor’s involvement in a Campaign.
 
+Note that occasionally a vendor may be referred to with multiple names so note the "alternateVendorNames" section if it is present.
+
 Example Input:
 
     {
@@ -129,6 +131,10 @@ Example Output:
       {
         "840001":"Test Vendor 1",
         "840002":"Test Vendor 2"
+      },
+      "alternateVendorNames":
+      {
+        "Test Vendor 1 Old Name":"840001"
       }
     }
 
