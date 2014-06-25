@@ -13,8 +13,7 @@ and you wish to perform the [getAdvertisers](#getAdvertisers) function, you perf
 
 ## getAdvertisers
 
-
-Returns a mapping of ID:Name for all Advertisers available to your Campaign Self Service account. An Advertiser ID will be required to create and update Campaign data.
+Using the parameter `(campaignservice)getAdvertisers` this will return a mapping of ID:Name for all Advertisers available to your Campaign Self Service account. An Advertiser ID will be required to create and update Campaign data.
 
 No input data is required for this function, besides the authentication cookie.
 
@@ -33,7 +32,7 @@ Example Output:
 ## getBrands
 
 
-Returns a mapping of ID:Name for all Brands available to the provided Advertiser. A Brand name will be required to create and update Campaign data.
+Using the parameter `(campaignservice)getBrands` this will return a mapping of ID:Name for all Brands available to the provided Advertiser. A Brand name will be required to create and update Campaign data.
 
 Example Input:
 
@@ -54,7 +53,8 @@ Example Output:
 
 
 ## manageCampaign
-Creates a new Campaign, or updates an existing Campaign, using the supplied JSON data. Each Campaign is linked to an Advertiser and a Brand, and is a container for Placements used to deliver ads for that Brand. If an ID is supplied for an existing Campaign, that Campaign will be updated (see getCampaigns below to retrieve existing IDs from the system).
+
+Using the parameter `(campaignservice)manageCampaign` will create a new Campaign, or update an existing Campaign, using the supplied JSON data. Each Campaign is linked to an Advertiser and a Brand, and is a container for Placements used to deliver ads for that Brand. If an ID is supplied for an existing Campaign, that Campaign will be updated (see getCampaigns below to retrieve existing IDs from the system).
 
 The input for a new Campaign requires an Advertiser ID (see getAdvertisers above), and a set of data representing the Campaign: this should contain a year, a brand name, and SQL-formatted start and end dates. Example:
 
@@ -89,7 +89,7 @@ Successful Output:
 
 ## getCampaigns
 
-Returns a mapping of ID:Name for Campaigns belonging to the provided Advertiser and year. A Campaign ID will be required for subsequent operations to manage Placements, Creatives, and Tags within that Campaign.
+Using the parameter `(campaignservice)getCampaigns` will return a mapping of ID:Name for Campaigns belonging to the provided Advertiser and year. A Campaign ID will be required for subsequent operations to manage Placements, Creatives, and Tags within that Campaign.
 
 Example Input:
 
@@ -135,7 +135,7 @@ Example Output:
 
 ## uploadPlans
 
-Imports a spreadsheet of data into the given campaign, creating Placements and outlining their delivery and spend plans. There are also a number of optional attributes which can be provided to enhance Placement reporting and planning.
+Using the parameter `(campaignservice)uploadPlans` will import a spreadsheet of data into the given campaign, creating Placements and outlining their delivery and spend plans. There are also a number of optional attributes which can be provided to enhance Placement reporting and planning.
 
 Input data only requires a Campaign ID, but a CSV or XLS/XLSX media plan is also required. Example JSON input:
 
@@ -183,7 +183,7 @@ Successful Output:
 
 ## getCreatives
 
-Returns a mapping of ID:Info for Creatives (Ads) available to the given Campaign; ie those matching the Campaign’s Brand. Creative IDs will be needed when assigning Ads to Placements and managing tracking.
+Using the parameter `(campaignservice)getCreatives` will returns a mapping of ID:Info for Creatives (Ads) available to the given Campaign; ie those matching the Campaign’s Brand. Creative IDs will be needed when assigning Ads to Placements and managing tracking.
 
 Example Input:
 
@@ -280,7 +280,7 @@ The JSON returned describes the Creatives assigned to each Placement, and each �
 
 ## uploadAssignments
 
-Imports a spreadsheet of data describing the ads (Editions, aka Creatives) to run on a Placement, along with Companion Ads. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
+Using the parameter `(campaignservice)uploadAssignments` will imports a spreadsheet of data describing the ads (Editions, aka Creatives) to run on a Placement, along with Companion Ads. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
 
 Input data only requires a Campaign ID, but a CSV or XLS/XLSX media plan is also required. Example JSON input:
 
@@ -309,7 +309,7 @@ Succesful Output:
 
 ## getTracking
 
-This returns a set of JSON data similar to the getAssignments operation, but with the inclusion of Tracking pixels assigned to Placement-Creative, and Placement-Creative-Companion combinations. Each combination may have multiple Tracking types, detailed in the uploadTracking operation, and each type may have multiple URLs. This is primarily used to check existing tracking contained within a given campaign.
+Using the parameter `(campaignservice)getTracking` will return a set of JSON data similar to the getAssignments operation, but with the inclusion of Tracking pixels assigned to Placement-Creative, and Placement-Creative-Companion combinations. Each combination may have multiple Tracking types, detailed in the uploadTracking operation, and each type may have multiple URLs. This is primarily used to check existing tracking contained within a given campaign.
 
 The input simply takes a Campaign ID:
 
@@ -396,7 +396,7 @@ The output shows assignments, minus weighting information, alongside tracking da
 
 ## uploadTracking
 
-Imports a spreadsheet of data describing the assignments of Tracking pixels (used to send event notifications to 3rd parties) to Placements, Editions, and Companions. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
+Using the parameter `(campaignservice)uploadTracking` will import a spreadsheet of data describing the assignments of Tracking pixels (used to send event notifications to 3rd parties) to Placements, Editions, and Companions. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
 
 Input data only requires a Campaign ID, but a CSV or XLS/XLSX media plan is also required. Example JSON input:
 
@@ -438,7 +438,7 @@ Successful Output:
 
 ## createTags
 
-Will produce or update tags, to be served by the appropriate Vendor, for the given Campaign ID and Placement IDs. Tag production will take the required Placement, Creative, and Tracking information from previous steps, and publish tags on the corresponding Vendor’s own Tag Self Service page within TGX.
+Using the parameter `(campaignservice)createTags` will produce or update tags, to be served by the appropriate Vendor, for the given Campaign ID and Placement IDs. Tag production will take the required Placement, Creative, and Tracking information from previous steps, and publish tags on the corresponding Vendor’s own Tag Self Service page within TGX.
 
 The input JSON requires the parent Campaign ID, and a set of IDs relating to the Placements we wish to create tags for. Example:
 
