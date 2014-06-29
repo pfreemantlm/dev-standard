@@ -5,7 +5,7 @@ then the macros have to be expanded ahead of time.
 <thead><tr><th>DoubleClick</th><th>Description</th><th>Suggestion</th></tr></thead>
 <tbody>
 <tr><td>%%CACHEBUSTER%%</td><td>Should be random to ensure the URL is always unique</td><td>Telemetry's player recognises [timestamp] which can be used.</td></tr>
-<tr><td>%%SCHEME%%</td><td>Should be https: or http: as appropriate</td><td>Telemetry's player automatically assumes all http:// urls can be translated to https:// but the TagExporter verifies this. Use https:// if in doubt.</td></tr>
+<tr><td>%%SCHEME%%</td><td>Should be https: or http: as appropriate</td><td>Telemetry's player automatically assumes all http:// urls can be translated to https:// but the TagExporter verifies this and installs the correct macro. Use https:// if in doubt.</td></tr>
 <tr><td>%eaid!</td><td>Line item ID</td><td>Telemetry Edition Id</td></tr>
 <tr><td>%eadv!</td><td>Advertiser ID</td><td>Telemetry Advertiser Id</td></tr>
 <tr><td>%ebuy!</td><td>Order ID</td><td>Telemetry Campaign Id</td></tr>
