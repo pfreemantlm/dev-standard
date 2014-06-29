@@ -34,11 +34,11 @@ Example Output:
 
 Using the parameter `(campaignservice)getBrands` this will return a mapping of ID:Name for all Brands available to the provided Advertiser. A Brand name will be required to create and update Campaign data.
 
+The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" should be set to the advertiser ID.
+
 Example Input:
 
-    {
-      "advertiserID": 800001, 
-    }
+    advertiserID=800001
 
 Example Output:
 
@@ -58,30 +58,33 @@ Using the parameter `(campaignservice)manageCampaign` will create a new Campaign
 
 The input for a new Campaign requires an Advertiser ID (see getAdvertisers above), and a set of data representing the Campaign: this should contain a year, a brand name, and SQL-formatted start and end dates. Example:
 
-    {
-      "advertiserID": 800001,
-      "data": 
-      { 
-        "title": "New Campaign", 
-        "year": 2014, 
-        "brand":"Brand One", 
-        "start":"2014-05-01",
-        "end":"2014-07-01"
-      }  
+The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" should be set to the advertiser ID,
+and the argument "data" should be the JSON-encoded and contain:
+
+    { 
+      "title": "New Campaign", 
+      "year": 2014, 
+      "brand":"Brand One", 
+      "start":"2014-05-01",
+      "end":"2014-07-01"
     }
+
+Example Input:
+
+    advertiserID=800001&data=%7B%22title%22%3A%22New%20Campaign%22%2C%22year%22%3A2014%2C%22brand%22%3A%22Brand%20One%22%2C%22start%22%3A%222014-05-01%22%2C%22end%22%3A%222014-07-01%22%7D
 
 For an existing campaign, you must provide the Campaign ID, and the details you wish to update (names and dates only; year and brand cannot be changed after creation). Example:
 
-    {
-      "advertiserID": 800001,
-      "data": 
-      { 
-    	"campaignID": 642001,
-        "title": "Renamed Campaign", 
-        "start":"2014-05-01",
-        "end":"2014-07-01"
-      }  
-    }
+    { 
+      "campaignID": 642001,
+      "title": "Renamed Campaign", 
+      "start":"2014-05-01",
+      "end":"2014-07-01"
+    }  
+
+Example Input:
+
+    advertiserID=800001&data=%7B%22campaignID%22%3A642001%2C%22title%22%3A%22Renamed%20Campaign%22%2C%22start%22%3A%222014-05-01%22%2C%22end%22%3A%222014-07-01%22%7D
 
 Successful Output:
 
@@ -91,12 +94,12 @@ Successful Output:
 
 Using the parameter `(campaignservice)getCampaigns` will return a mapping of ID:Name for Campaigns belonging to the provided Advertiser and year. A Campaign ID will be required for subsequent operations to manage Placements, Creatives, and Tags within that Campaign.
 
+The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" should be set to the advertiser ID,
+and the target campaign year as "year" should be supplied.
+
 Example Input:
 
-    {
-      "advertiserID": 800001, 
-      "year":2014
-    }
+    advertiserID=800001&year=2014
 
 Example Output:
 
@@ -117,11 +120,9 @@ Returns a mapping of ID:Name for all on-boarded Vendors available to the provide
 
 Note that occasionally a vendor may be referred to with multiple names so note the "alternateVendorNames" section if it is present.
 
-Example Input:
+The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" should be set to the advertiser ID.
 
-    {
-      "advertiserID": 800001, 
-    }
+    advertiserID=800001
 
 Example Output:
 
@@ -143,11 +144,8 @@ Example Output:
 
 Using the parameter `(campaignservice)uploadPlans` will import a spreadsheet of data into the given campaign, creating Placements and outlining their delivery and spend plans. There are also a number of optional attributes which can be provided to enhance Placement reporting and planning.
 
-Input data only requires a Campaign ID, but a CSV or XLS/XLSX media plan is also required. Example JSON input:
-
-    {
-      "campaignID": 642001
-    }
+The HTTP POST argument contains a (multipart/form-data) file (CSV, XLS or XLSX) file called "file"
+and an already-existing "campaignID" of the appropriate format.
 
 The input spreadsheet should be separated into a line per Placement “flight”. That is to say, a Placement’s information should be repeated for every set of delivery dates in the plan. See the [sample plan file](./samples/placement_and_plan.xlsx) file for an example.
 
@@ -191,11 +189,13 @@ Successful Output:
 
 Using the parameter `(campaignservice)getCreatives` will returns a mapping of ID:Info for Creatives (Ads) available to the given Campaign; ie those matching the Campaign’s Brand. Creative IDs will be needed when assigning Ads to Placements and managing tracking.
 
-Example Input:
+The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" is a campaign ID that has
+already been created.
 
-    {
-      "campaignID": 642001
-    }
+Sample input:
+
+    campaignID=642001
+
 
 The output contains, for each Creative ID, the corresponding name and type. The type can be used for identifying between regular video ads, pixels, and companion ads. Example:
 
@@ -220,11 +220,11 @@ The output contains, for each Creative ID, the corresponding name and type. The 
 
 Used to determine which Ads are running on which Placements. Returns a set of JSON data representing the current assignment of Editions (aka Creatives) and Companion Creatives to Placements within the given Campaign ID. Should be used to determine existing Placement IDs, needed to update these Assignments and Tracking, and also create Tags.
 
-The input simply takes a Campaign ID:
+The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" should be set to the campaign ID.
 
-    {
-      "campaignID": 642001
-    }
+Sample input:
+
+    campaignID=642001
 
 The JSON returned describes the Creatives assigned to each Placement, and each “series” of Companion Creatives on each assignment. In both cases, the “weighting” of the Creative or Companion is also shown. The below example output shows 2 placements; one with 2 editions (50/50 weighted) and another with edition, complete with 1 companion:
 
@@ -288,11 +288,8 @@ The JSON returned describes the Creatives assigned to each Placement, and each �
 
 Using the parameter `(campaignservice)uploadAssignments` will imports a spreadsheet of data describing the ads (Editions, aka Creatives) to run on a Placement, along with Companion Ads. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
 
-Input data only requires a Campaign ID, but a CSV or XLS/XLSX media plan is also required. Example JSON input:
-
-    {
-      "campaignID": 642001
-    }
+The HTTP POST argument contains a (multipart/form-data) file (CSV, XLS or XLSX) file called "file"
+and an already-existing "campaignID" of the appropriate format.
 
 The input spreadsheet should be separated into a line per Placement-Edition, with the weight specified. For assigning companions. further lines are then created with the same Placement-Edition information, and a weighting and series ID for each Placement-Edition-Companion line. The “Series ID” is used to group multiple companions together; i.e. these will be served together alongside the same Placement-Edition. Please see [a sample assignment file](./samples/creative_assignment.xlsx).
 
@@ -317,12 +314,12 @@ Succesful Output:
 
 Using the parameter `(campaignservice)getTracking` will return a set of JSON data similar to the getAssignments operation, but with the inclusion of Tracking pixels assigned to Placement-Creative, and Placement-Creative-Companion combinations. Each combination may have multiple Tracking types, detailed in the uploadTracking operation, and each type may have multiple URLs. This is primarily used to check existing tracking contained within a given campaign.
 
-The input simply takes a Campaign ID:
+The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" is a campaign ID that has
+already been created.
 
-    {
-      "campaignID": 642001
-    }
+Sample input:
 
+    campaignID=642001
 
 The output shows assignments, minus weighting information, alongside tracking data (types and sets of pixel URLs). In the example output, a Placement-Edition has 2 “Ad Start” pixels, and a Placement-Edition-Companion contains both 1 “Ad Start” pixel and 1 “Clickthrough” tracking pixel:
 
@@ -404,11 +401,8 @@ The output shows assignments, minus weighting information, alongside tracking da
 
 Using the parameter `(campaignservice)uploadTracking` will import a spreadsheet of data describing the assignments of Tracking pixels (used to send event notifications to 3rd parties) to Placements, Editions, and Companions. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
 
-Input data only requires a Campaign ID, but a CSV or XLS/XLSX media plan is also required. Example JSON input:
-
-    {
-      "campaignID": 642001
-    }
+The HTTP POST argument contains a (multipart/form-data) file (CSV, XLS or XLSX) file called "file"
+and an already-existing "campaignID" of the appropriate format.
 
 Each line in the spreadsheet is used per Tracking Pixel URL we want to assign. Details of the combination to assign to; that is Placement-Edition, or Placement-Edition-Companion; are given alongside the Tracking Event (details below) and Tracking Pixel URL. For multiple URLs, repeat the Event and Assignment for each URL. Please see a [sample tracking sheet](./samples/tracking.xlsx).
 
@@ -446,16 +440,12 @@ Successful Output:
 
 Using the parameter `(campaignservice)createTags` will produce or update tags, to be served by the appropriate Vendor, for the given Campaign ID and Placement IDs. Tag production will take the required Placement, Creative, and Tracking information from previous steps, and publish tags on the corresponding Vendor’s own Tag Self Service page within TGX.
 
-The input JSON requires the parent Campaign ID, and a set of IDs relating to the Placements we wish to create tags for. Example:
+The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" should be set to the existing
+campaign ID, and the placements should be supplied as multiple "data[]" arguments.
 
-    {
-      "campaignID": 642001, 
-      "placements":
-      [
-        3300081, 
-        3300082
-      ]
-    }
+Sample input:
+
+    campaignID=642001&data[]=3300081&data[]=3300082
 
 Successful Output:
 
