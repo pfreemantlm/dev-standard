@@ -441,11 +441,11 @@ Successful Output:
 Using the parameter `(campaignservice)createTags` will produce or update tags, to be served by the appropriate Vendor, for the given Campaign ID and Placement IDs. Tag production will take the required Placement, Creative, and Tracking information from previous steps, and publish tags on the corresponding Vendor’s own Tag Self Service page within TGX.
 
 The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" should be set to the existing
-campaign ID, and the placements should be supplied as multiple "data[]" arguments.
+campaign ID, and the placements should be supplied as multiple "placements[]" arguments.
 
 Sample input:
 
-    campaignID=642001&data[]=3300081&data[]=3300082
+    campaignID=642001&placements[]=3300081&placements[]=3300082
 
 Successful Output:
 
