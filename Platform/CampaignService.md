@@ -58,33 +58,22 @@ Using the parameter `(campaignservice)manageCampaign` will create a new Campaign
 
 The input for a new Campaign requires an Advertiser ID (see getAdvertisers above), and a set of data representing the Campaign: this should contain a year, a brand name, and SQL-formatted start and end dates. Example:
 
-The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" should be set to the advertiser ID,
-and the argument "data" should be the JSON-encoded and contain:
+The HTTP POST argument (application/x-www-form-urlencoded):
 
-    { 
-      "title": "New Campaign", 
-      "year": 2014, 
-      "brand":"Brand One", 
-      "start":"2014-05-01",
-      "end":"2014-07-01"
-    }
+* `advertiserID` should be set to the advertiser ID,
+* `data[title]` should be the (display) name of the campaign,
+* `data[year]` should be the campaign year (usually the same as the start date)
+* `data[brand]` should be the string name of the Brand (but matching something returned from getBrands above)
+* `data[start]` should be the ISO-formatted start date
+* `data[end]` should be the ISO-formatted end date
 
 Example Input:
 
-    advertiserID=800001&data=%7B%22title%22%3A%22New%20Campaign%22%2C%22year%22%3A2014%2C%22brand%22%3A%22Brand%20One%22%2C%22start%22%3A%222014-05-01%22%2C%22end%22%3A%222014-07-01%22%7D
+    advertiserID=800001&data[title]=New%20Campaign&data[year]=2014&data[brand]=Brand%20One&data[start]=2014-05-01&data[end]=2014-07-01
 
-For an existing campaign, you must provide the Campaign ID, and the details you wish to update (names and dates only; year and brand cannot be changed after creation). Example:
+For an existing campaign, you must provide the Campaign ID as `data[campaignID]`:
 
-    { 
-      "campaignID": 642001,
-      "title": "Renamed Campaign", 
-      "start":"2014-05-01",
-      "end":"2014-07-01"
-    }  
-
-Example Input:
-
-    advertiserID=800001&data=%7B%22campaignID%22%3A642001%2C%22title%22%3A%22Renamed%20Campaign%22%2C%22start%22%3A%222014-05-01%22%2C%22end%22%3A%222014-07-01%22%7D
+    advertiserID=800001&data[title]=New%20Campaign&data[year]=2014&data[brand]=Brand%20One&data[start]=2014-05-01&data[end]=2014-07-01&data[campaignID]=642001
 
 Successful Output:
 
