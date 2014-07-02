@@ -15,6 +15,8 @@ A tab is 8 spaces.
 
 Languages that emphasize a continuation-passing style (JavaScript) should use two spaces instead of a tab.
 
+Python may use the guidance in PEP8 and use four spaces for indention (no tabs).
+
 ## Magic
 
 Magic numbers are frowned upon. Define and document constants.
