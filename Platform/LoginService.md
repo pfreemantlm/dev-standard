@@ -11,7 +11,7 @@ One way to get these cookies using the LoginService:
 
 An example shell-script using CURL follows:
 
-    curl -s --cookie-jar "cookie-jar" \
+    curl -X POST -s --cookie-jar "cookie-jar" \
          --data "u=$username&p=$password" \
          "https://$url?callback=curl"
 
