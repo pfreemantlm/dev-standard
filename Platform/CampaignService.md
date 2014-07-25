@@ -149,7 +149,6 @@ The spreadsheet *must* contain these column headers:
  * Online Video
  * Display
  * Mobile
- * Companion
 * **Cost Structure** - designates the method of payment for deliveries on the Placement; can be one of: 
  * CPM (cost per 1000 ad deliveries)
  * CPC (cost per ad click)
