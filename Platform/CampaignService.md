@@ -283,13 +283,13 @@ The input spreadsheet should be separated into a line per Placement-Edition, wit
 
 The spreadsheet *must* contain these column headers:
 
-* **Placement ID** - Telemetry Guid for the Placement, use getAssignments operation to figure out the correct IDs
-* **Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs
-* **Weight** - The weighting for the Ad to be shown in relation to other ads on “rotation” for this Placement. Eg, 2 ads both at 50 weighting will each show half of the time. Note that if a Companion Creative ID is provided (see below) then this weighting describes that of the Companion on this combination.
+* **Placement ID** - Telemetry Guid for the Placement, use getAssignments operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
+* **Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
+* **Weight** - The weighting for the Ad to be shown in relation to other ads on “rotation” for this Placement. Eg, 2 ads both at 50 weighting will each show half of the time. Note that if a Companion Creative ID is provided (see below) then this weighting describes that of the Companion on this combination. Note the weights numeric so they must not have double-quotes around them.
 
 And if Companions are required:
 
-* **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type “Display/Companion”
+* **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type “Display/Companion”.  Note these are numeric so they must not have double-quotes around them.
 * **Companion Series** - Those Companion Creatives on the same Placement-Edition combination with a matching Companion Series identifier will be shown at the same time. Thus the weighting must match for each Companion in a series. The identifier can be anything you like, so long as it is unique to the combination.
 
 Note that you can include name columns (e.g. Placement Name, Creative Name) for reference, though these are not used during the upload process.
@@ -396,8 +396,8 @@ Each line in the spreadsheet is used per Tracking Pixel URL we want to assign. D
 
 The spreadsheet *must* contain these column headers:
 
-* **Placement ID** - Telemetry Guid for the Placement, use getAssignments operation to figure out the correct IDs
-* **Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs
+* **Placement ID** - Telemetry Guid for the Placement, use getAssignments operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
+* **Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
 * **Tracking Type** - the event we want to fire a pixel for; can be one:
  * **Ad Request** (when the ad is requested by the player/hosting site)
  * **Ad Start** (when the ad begins playback)
@@ -416,7 +416,7 @@ Some plugins will expose *additional* tracking types. These are always presented
 
 If Companions are being assigned to, there will be an additional column:
 
-* **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type “Display/Companion”
+* **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type “Display/Companion”. Note these are numeric so they must not have double-quotes around them.
 
 Note that you can include name columns (e.g. Placement Name, Creative Name) for reference, though these are not used during the upload process.
 
