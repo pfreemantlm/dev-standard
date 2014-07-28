@@ -10,6 +10,38 @@ This is a [Display unit](#Display) that someone has served [Video](#Video) into.
 
 Banner Video usually starts paused, or auto-playing with the sound muted and will only play (audio) when clicked. Banner Video that starts automatically with the sound on is usually a trafficking mistake.
 
+##Campaign
+
+From a technical point of view, a campaign is the set of placements+creatives(+[companion creatives](#Companion)) that are scheduled to run over a given time range.
+
+Campaigns are planned by week, month, by quarter, and even by year.
+
+##Campaign Year
+
+The "campaign year" of a campaign is the calendar year that the majority of the campaign is in.
+
+Telemetry partitions customer data by campaign year.
+
+Most of the time, you can use the current year, *but this will be confusing* near the end of the calendar year as e.g. 2014 January campaigns
+actually started in December for one advertiser, and 2013 Q4 campaigns actually ended in 2014 January for another.
+
+Below is a suggested algorithm:
+
+1. Scan all time-ranges in a media plan.
+2. If all of the time ranges are within a single calendar year, *use that year*.
+3. Collect the "start dates" and find the *mode* year; if it is *before* the midpoint of the month, *use this year*.
+4. Collect the "end dates" and find the *mode* year; if it is *after* the midpoint of the month, *use this year*.
+5. Count the days in each year, use the year with the most represented days
+
+Examples:
+
+<table><thead><tr><th>Start</th><th>End</th><th>Campaign Year</th><th>Rule</th></tr></thead><tbody>
+<tr><td>2013-11-01</td><td>2013-12-02</td><td>2013</td><td>2</td></tr>
+<tr><td>2013-12-03</td><td>2014-01-02</td><td>2013</td><td>3</td></tr>
+<tr><td>2013-12-16</td><td>2014-01-31</td><td>2014</td><td>4</td></tr>
+<tr><td>2013-12-16</td><td>2014-01-02</td><td>2013</td><td>5</td></tr>
+</tbody></table>
+
 ##Click Tracking
 
 Not to be confused with [clickthrough](#Clickthrough). Click tracking refers to measuring the click itself.
