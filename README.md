@@ -8,4 +8,6 @@ This tree contains the Telemetry development standard. You are encouraged to che
 * [Coding.md](./Coding.md) - Requirements for code hygiene
 * [Contract.pdf](./Contract.pdf) - Standard non-disclosure and rights-assignment for independant contractors
 
+You will also find literature surrounding various components and some [reference materials](./Reference/) that
+is useful for developers.
 
