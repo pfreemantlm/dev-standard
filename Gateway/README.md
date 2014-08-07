@@ -21,5 +21,3 @@ With it your application will need to:
 
 * [Log in](../LoginService/README.md) to the test system, saving the cookies the login service generates
 * Perform HTTP get [SimpleReporting](./SimpleReporting.md) to query reports
-
-

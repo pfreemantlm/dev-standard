@@ -29,7 +29,6 @@ Your application should allow shell-style (backslash) escapes in this file.
 
 With it your application will need to:
 
-* [Log in](./LoginService.md) to the test system, saving the cookies the login service generates
+* [Log in](../LoginService/README.md) to the test system, saving the cookies the login service generates
 * Perform HTTP post to [CampaignService](./CampaignService.md) to configure the test server
 * [Verify and test](./Tags.md#Testing) the tags created.
-
