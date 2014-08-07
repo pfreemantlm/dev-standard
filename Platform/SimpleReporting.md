@@ -2,8 +2,7 @@ Telemetry SimpleReporting
 =========================
 
 SimpleReporting is the name of a HTTP GET-based interface for extracting reporting
-data from the Telemetry Platform. Output can be produced in CSV, XLS and XLSX formats
-for most data sources.
+data from the Telemetry Platform. Output can be produced in CSV, XLS, and XLS97 (old Excel) formats for most data sources.
 
 ##Composing the Export URL
 
@@ -39,12 +38,12 @@ If this is not supplied, only total values will be returned.
 
 SimpleReporting can output pivot tables. These parameters contain the [field atoms](#fields-1) in the order they should be present, and the special atom `metrics` where the metrics should be projected.
 
-*For example*, if producing a CSV or XLS output (or don't want a pivot table), and you have the fields `Creative,Placement,Daynum` then you should use:
+*For example*, if producing a CSV or XLS97 output (or don't want a pivot table), and you have the fields `Creative,Placement,Daynum` then you should use:
 
     (cols)metrics
     (rows)Creative,Placement,Daynum
 
-If you are producing XLSX and want a pivot table, you can do something like this:
+If you are producing XLS and want a pivot table, you can do something like this:
 
     (cols)Placement,Creative,metrics
     (rows)Daynum
@@ -54,8 +53,8 @@ If you are producing XLSX and want a pivot table, you can do something like this
 This should be one of the following strings:
 
 * `csv` for a plain CSV-formatfile
-* `xls` for Microsoft Excel 97/2003-compatible format
-* `xlsx` for a modern Microsoft Excel 2007-compatible format
+* `xls97` for Microsoft Excel 97/2003-compatible format
+* `xls` for a modern Microsoft Excel 2007-compatible format
 
 
 ###(advertiser), (award), (region), (tranche), (brand), (campaign), (vendor), (creativeedition)
