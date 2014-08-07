@@ -54,7 +54,7 @@ If you are producing XLSX and want a pivot table, you can do something like this
 This should be one of the following strings:
 
 * `csv` for a plain CSV-formatfile
-* `xlx` for Microsoft Excel 97/2003-compatible format
+* `xls` for Microsoft Excel 97/2003-compatible format
 * `xlsx` for a modern Microsoft Excel 2007-compatible format
 
 
