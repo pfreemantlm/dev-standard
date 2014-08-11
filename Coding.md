@@ -157,3 +157,6 @@ Do not store "events", "logs" or "sensor" data in MySQL. It's inappropriate. Use
 
 Named pipes are an excellent inter-process communication mechanism. The kernel already locks and serializes writes that are smaller than a PIPE_BUF, so there's no need for additional locking if your messages are small.
 
+## Logging
+
+Only log what is necessary and actionable.
