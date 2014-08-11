@@ -17,7 +17,7 @@ the live system in the following ways:
 
 * The Test system is wiped/refreshed weekly (Friday at 7am UTC)
 * Requests to the test server will error out roughly 10% of the time (instead of 1% in live)
-* Tags can only be pulled from the test system by setting [an HTTP cookie](./Tags.md#Testing)
+* Tags can only be pulled from the test system by setting [an HTTP cookie](../Reference/Tags.md#Testing)
 
 Your application should take as an argument a file containing credentials. It looks like this:
 
@@ -31,4 +31,4 @@ With it your application will need to:
 
 * [Log in](../LoginService/README.md) to the test system, saving the cookies the login service generates
 * Perform HTTP post to [CampaignService](./CampaignService.md) to configure the test server
-* [Verify and test](./Tags.md#Testing) the tags created.
+* [Verify and test](../Reference/Tags.md#Testing) the tags created.
