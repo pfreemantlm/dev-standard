@@ -10,6 +10,7 @@ Your application will need to:
 * Look up the SRV record for `_smelter._tcp.telemetry.com`
 * Check [the status](#check-status) of a file using its SHA-1 hash
 * If the file hasn't been received, [upload the file](#upload-file)
+* Continue to [check the status](#check-status) until the file is `DONE` or an `ERROR` occurs.
 
 ##GenerateTickets
 
