@@ -138,8 +138,8 @@ Suitable for Display and Companion banners.
 * Uploaded SWF must not contain any clickTag code
 * Preload/First SWF must contain the following code in the first-frame/constructor:
 
-    import flash.utils.getDefinitionByName;
-    try { getDefinitionByName(“Telemetry”).init(stage);}catch(e:Error){}
+        import flash.utils.getDefinitionByName;
+        try { getDefinitionByName(“Telemetry”).init(stage);}catch(e:Error){}
 
 ###JPEG
 Suitable for video thumbanils, Display and Companion banners.
