@@ -29,6 +29,27 @@ Example Output:
     }
 
 
+## getRegions
+
+Using the parameter `(campaignservice)getRegions` this will return a mapping of ID:Name for all Regions available to the provided Advertiser.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" should be set to the advertiser ID.
+
+Example Input:
+
+    advertiserID=800001
+
+Example Output:
+
+    {
+      "success":true,
+      "regions":
+      {
+        "920001":"USA",
+        "920002":"Canada"
+      }
+    }
+
 ## getBrands
 
 
@@ -203,6 +224,42 @@ The output contains, for each Creative ID, the corresponding name and type. The 
         }
       }
     }
+
+## getCreativesEditions
+
+Using the parameter `(campaignservice)getCreativesEditions` will returns a mapping of ID:Info for Creative Groups available to the given Brand.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "brandID" is a brand ID that has already been created.
+
+Sample input:
+
+    brandID=970001
+
+The output contains, for each Creative Group ID, the corresponding name and the creatives in that group. For each Creative ID, the output contains the corresponding name, path and type. The path is the URI path on the CDN for the ad's primary flash video or banner file. The type can be used for identifying between regular video ads, pixels, and companion ads. If the creative group has been created with no creatives attached, the creatives data will be empty. Example:
+
+    {
+      "success":true,
+      "creativegroups":
+      {
+        "710001":
+        {
+          "name":"My Brand 640x480",
+          "creatives":{
+          	"750001": {
+          	  "name":"My Brand 640x480",
+          	  "path":"/content/mybrand/mybrand_640x480.swf",
+          	  "type":"Video"
+          	}
+          }
+        },
+        "710003":
+        {
+          "name":"My Brand 300x250 Companion",
+          "creatives”:[]
+        }
+      }
+    }
+
 
 ## getAssignments
 
