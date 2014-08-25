@@ -6,10 +6,10 @@ Creative-upload is awkward, since it requires a number of services.
 Your application will need to:
 
 * [Log in](../LoginService/README.md) to the test system, saving the cookies the login service generates
-* [Generate Tickets](#GenerateTickets) from the login cookie
+* [Generate Tickets](#generatetickets) from the login cookie
 * Look up the SRV record for `_smelter._tcp.telemetry.com`
-* Check [the status](#Check_Status) of a file using its SHA-1 hash
-* If the file hasn't been received, [upload the file](#Upload_File)
+* Check [the status](#check-status) of a file using its SHA-1 hash
+* If the file hasn't been received, [upload the file](#upload-file)
 
 ##GenerateTickets
 
@@ -57,13 +57,13 @@ The response will be:
       </SOAP-ENV:Body>
     </SOAP-ENV:Envelope>
 
-Save the `TICKET_STRING` for [checking the status](#Check_status) and [uploading the files](#Upload_File).
+Save the `TICKET_STRING` for [checking the status](#check-status) and [uploading the files](#upload-file).
 
 ##Check Status
 
 You will need to know the:
 
-* [`TICKET_STRING`](#GenerateTickets)
+* [`TICKET_STRING`](#generatetickets)
 * [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions)
 
 Connect to https://*SmelterEndpoint*`/process.php` by looking up the SRV record `_smelter._tcp.telemetry.com` and send the GET request:
@@ -76,7 +76,7 @@ You will get a JSON response:
 
 You can receive the following status:
 
-* `UNKNOWN_FILE`: The file must be uploaded. [Upload the files](#Upload_File).
+* `UNKNOWN_FILE`: The file must be uploaded. [Upload the files](#upload-file).
 * `PROCESSING`: The file is being transcoded/converted
 * `STAGING`: The file exists on the staging area (and has been accepted)
 * `DONE`: The file is on Telemetry's content servers and is ready for serving.
@@ -86,7 +86,7 @@ You can receive the following status:
 
 You will need to know the:
 
-* [`TICKET_STRING`](#GenerateTickets)
+* [`TICKET_STRING`](#generatetickets)
 * [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions)
 * `FILE_SHA1_HASH` - which is the SHA1-hash of the raw [file](#formats) being uploaded.
 
@@ -95,7 +95,7 @@ You must have a file matching [the upload specs](#formats). If you are uploading
 Connect to https://*SmelterEndpoint*`/process.php` by looking up the SRV record `_smelter._tcp.telemetry.com` and send an HTTP POST
 of the content-type `multipart/form-data` with the following fields:
 
-* `token` - the [`TICKET_STRING`](#GenerateTickets) above
+* `token` - the [`TICKET_STRING`](#generatetickets) above
 * `edition_id` - the [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions)
 * `main_file` - the [raw file](#formats)
 * `thumbnail` - if the `main_file` is a video, include a JPEG `512x288` pixels.
