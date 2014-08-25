@@ -50,7 +50,8 @@ Send an HTTP request that looks like the following to *endpointurl*`/soap/apiv03
 
 The response will be:
 
-    <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://telemetry.com/dataapi/">
+    <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                       xmlns:ns1="http://telemetry.com/dataapi/">
       <SOAP-ENV:Body>
         <ns1:GenerateTicketsReplyMsg>
           <Tickets>TICKET_STRING</Tickets>
