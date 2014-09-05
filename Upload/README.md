@@ -8,6 +8,7 @@ Your application will need to:
 * [Log in](../LoginService/README.md) to the test system, saving the cookies the login service generates
 * [Generate Tickets](#generatetickets) from the login cookie
 * Look up the SRV record for `_smelter._tcp.telemetry.com`
+* *Optionally* ping each smelter by pulling https://*smelterhost*/blank.gif and chosing the closest host
 * Check [the status](#check-status) of a file using its SHA-1 hash
 * If the file hasn't been received, [upload the file](#upload-file)
 * Continue to [check the status](#check-status) until the file is `DONE` or an `ERROR` occurs.
