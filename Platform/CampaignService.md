@@ -170,6 +170,7 @@ The spreadsheet *must* contain these column headers:
  * Online Video
  * Display
  * Mobile
+ * Package - will not contain tag items unless items are moved under it, using the packageItems function.
 * **Cost Structure** - designates the method of payment for deliveries on the Placement; can be one of: 
  * CPM (cost per 1000 ad deliveries)
  * CPC (cost per ad click)
@@ -193,6 +194,33 @@ The spreadsheet *may* have these column headers:
 Successful Output:
 
     { "result": 1, "message": "Success", "data": [] }
+
+
+
+## packageItems
+
+Using the parameter `(campaignservice)packageItems` will assign a set of placements underneath a "package" placement's plan. For each package assignment, you provide the ID for the parent; that is the item with the plan you wish to use, and a set of child IDs; that is those items you wish to move underneath this plan. 
+
+All placements must belong to the given campaignID, and the same vendor in order to be packaged together.
+
+The HTTP POST argument (application/x-www-form-urlencoded):
+
+* `campaignID` should be the campaign containing all the given placements,
+* `packages[0][parentID]` should be the ID of the item we wish to set as the first parent package,
+* `packages[0][children][]` should be the ID of an item we wish to move into this first package,
+* `packages[0][children][]` should be the ID of another item we wish to move into this first package,
+* `packages[1][parentID]` should be the ID of the item we wish to set as the second parent package,
+* `packages[1][children][]` should be the ID of an item we wish to move into this second package,
+
+Example Input:
+
+    campaignID= 642001&packages[0][parentID]=3300080&packages[0][children][]=3300082&packages[0][children][]=3300081
+
+
+Successful Output:
+
+    { "result": 1, "message": "Success", "data": [] }
+
 
 ## getCreatives
 
@@ -486,7 +514,7 @@ Successful Output:
 Using the parameter `(campaignservice)createTags` will produce or update tags, to be served by the appropriate Vendor, for the given Campaign ID and Placement IDs. Tag production will take the required Placement, Creative, and Tracking information from previous steps, and publish tags on the corresponding Vendor’s own Tag Self Service page within TGX.
 
 The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" should be set to the existing
-campaign ID, and the placements should be supplied as multiple "placements[]" arguments.
+campaign ID, and the placements should be supplied as multiple "placements[]" arguments. Each item in the "placements[]" arguments refers to a single placement; supplying a package ID (for a parent used in packageItems) will not automatically create tags for everything underneath it.
 
 Sample input:
 
