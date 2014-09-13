@@ -214,7 +214,7 @@ The HTTP POST argument (application/x-www-form-urlencoded):
 
 Example Input:
 
-    campaignID= 642001&packages[0][parentID]=3300080&packages[0][children][]=3300082&packages[0][children][]=3300081
+    campaignID=642001&packages[0][parentID]=3300080&packages[0][children][]=3300082&packages[0][children][]=3300081
 
 
 Successful Output:
