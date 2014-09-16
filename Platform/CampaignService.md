@@ -157,14 +157,14 @@ Using the parameter `(campaignservice)uploadPlans` will import a spreadsheet of 
 The HTTP POST argument contains a (multipart/form-data) file (CSV, XLS or XLSX) file called "file"
 and an already-existing "campaignID" of the appropriate format.
 
-The input spreadsheet should be separated into a line per Placement “flight”. That is to say, a Placement’s information should be repeated for every set of delivery dates in the plan. See the [sample plan file](./samples/placement_and_plan.xlsx) file for an example.
+The input spreadsheet should be separated into a line per Placement "flight". That is to say, a Placement’s information should be repeated for every set of delivery dates in the plan. See the [sample plan file](./samples/placement_and_plan.xlsx) file for an example.
 
 The spreadsheet *must* contain these column headers:
 
 * **Placement Name** - should be unique to the Vendor and Campaign
 * **Site Name** - Vendor’s name
 * **Start Date**
-* **End Date** - signifies range for the given “flight” - dates should be SQL formatted, eg 2014-01-27
+* **End Date** - signifies range for the given "flight" - dates should be SQL formatted, eg 2014-01-27
 * **Units** - planned number of deliveries for the given date range
 * **Type** - the type of Placement; can be one of: 
  * Online Video
@@ -248,7 +248,7 @@ The output contains, for each Creative ID, the corresponding name and type. The 
         "750002":
         {
           "name":"My Brand 300x60 Companion",
-          "type”:”Display/Companion"
+          "type":"Display/Companion"
         }
       }
     }
@@ -283,7 +283,7 @@ The output contains, for each Creative Group ID, the corresponding name and the 
         "710003":
         {
           "name":"My Brand 300x250 Companion",
-          "creatives”:[]
+          "creatives":[]
         }
       }
     }
@@ -299,7 +299,7 @@ Sample input:
 
     campaignID=642001
 
-The JSON returned describes the Creatives assigned to each Placement, and each “series” of Companion Creatives on each assignment. In both cases, the “weighting” of the Creative or Companion is also shown. If the Placement has a schedule for Creatives & Companions, then the Creatives appear in a different object, with a start and end date for each scheduled block. The below example output shows 2 placements; one with a schedule comprised of 3 editions; and another with 1 edition, complete with 1 companion:
+The JSON returned describes the Creatives assigned to each Placement, and each "series" of Companion Creatives on each assignment. In both cases, the "weighting" of the Creative or Companion is also shown. If the Placement has a schedule for Creatives & Companions, then the Creatives appear in a different object, with a start and end date for each scheduled block. The below example output shows 2 placements; one with a schedule comprised of 3 editions; and another with 1 edition, complete with 1 companion:
 
     {
       "success":true,
@@ -377,7 +377,7 @@ Using the parameter `(campaignservice)uploadAssignments` will imports a spreadsh
 The HTTP POST argument contains a (multipart/form-data) file (CSV, XLS or XLSX) file called "file"
 and an already-existing "campaignID" of the appropriate format.
 
-The input spreadsheet should be separated into a line per Placement-Edition, with the weight specified. For assigning companions. further lines are then created with the same Placement-Edition information, and a weighting and series ID for each Placement-Edition-Companion line. The “Series ID” is used to group multiple companions together; i.e. these will be served together alongside the same Placement-Edition. Please see [a sample assignment file](./samples/creative_assignment.xlsx).
+The input spreadsheet should be separated into a line per Placement-Edition, with the weight specified. For assigning companions. further lines are then created with the same Placement-Edition information, and a weighting and series ID for each Placement-Edition-Companion line. The "Series ID" is used to group multiple companions together; i.e. these will be served together alongside the same Placement-Edition. Please see [a sample assignment file](./samples/creative_assignment.xlsx).
 
 You can also schedule which Creatives or Companions run at a particular time on a Placement. Repeat each row with UTC Start and End dates for every scheduled period, setting the weight of each active Creative or Companion at the appropriate time. When uploading, the full schedule must be included and will take precedence over any previous schedules on each Placement. Please see [an example of creative scheduling](./samples/creative_assignment_schedules.xlsx).
 
@@ -385,11 +385,11 @@ The spreadsheet *must* contain these column headers:
 
 * **Placement ID** - Telemetry Guid for the Placement, use getAssignments operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
 * **Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
-* **Weight** - The weighting for the Ad to be shown in relation to other ads on “rotation” for this Placement. Eg, 2 ads both at 50 weighting will each show half of the time. Note that if a Companion Creative ID is provided (see below) then this weighting describes that of the Companion on this combination. Note the weights numeric so they must not have double-quotes around them.
+* **Weight** - The weighting for the Ad to be shown in relation to other ads on "rotation" for this Placement. Eg, 2 ads both at 50 weighting will each show half of the time. Note that if a Companion Creative ID is provided (see below) then this weighting describes that of the Companion on this combination. Note the weights numeric so they must not have double-quotes around them.
 
 If Companions are required:
 
-* **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type “Display/Companion”.  Note these are numeric so they must not have double-quotes around them.
+* **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type "Display/Companion".  Note these are numeric so they must not have double-quotes around them.
 * **Companion Series** - Those Companion Creatives on the same Placement-Edition combination with a matching Companion Series identifier will be shown at the same time. Thus the weighting must match for each Companion in a series. The identifier can be anything you like, so long as it is unique to the combination.
  
 And if scheduling:
@@ -416,7 +416,7 @@ Sample input:
 
     campaignID=642001
 
-The output shows assignments, minus weighting information, alongside tracking data (types and sets of pixel URLs). In the example output, a Placement-Edition has 2 “Ad Start” pixels, and a Placement-Edition-Companion contains both 1 “Ad Start” pixel and 1 “Clickthrough” tracking pixel:
+The output shows assignments, minus weighting information, alongside tracking data (types and sets of pixel URLs). In the example output, a Placement-Edition has 2 "Ad Start" pixels, and a Placement-Edition-Companion contains both 1 "Ad Start" pixel and 1 "Clickthrough" tracking pixel:
 
     {
       "success":true,
@@ -523,7 +523,7 @@ Some plugins will expose *additional* tracking types. These are always presented
 
 If Companions are being assigned to, there will be an additional column:
 
-* **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type “Display/Companion”. Note these are numeric so they must not have double-quotes around them.
+* **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type "Display/Companion". Note these are numeric so they must not have double-quotes around them.
 
 Note that you can include name columns (e.g. Placement Name, Creative Name) for reference, though these are not used during the upload process.
 
