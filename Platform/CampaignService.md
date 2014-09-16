@@ -299,7 +299,7 @@ Sample input:
 
     campaignID=642001
 
-The JSON returned describes the Creatives assigned to each Placement, and each “series” of Companion Creatives on each assignment. In both cases, the “weighting” of the Creative or Companion is also shown. The below example output shows 2 placements; one with 2 editions (50/50 weighted) and another with edition, complete with 1 companion:
+The JSON returned describes the Creatives assigned to each Placement, and each “series” of Companion Creatives on each assignment. In both cases, the “weighting” of the Creative or Companion is also shown. If the Placement has a schedule for Creatives & Companions, then the Creatives appear in a different object, with a start and end date for each scheduled block. The below example output shows 2 placements; one with a schedule comprised of 3 editions; and another with 1 edition, complete with 1 companion:
 
     {
       "success":true,
@@ -308,21 +308,34 @@ The JSON returned describes the Creatives assigned to each Placement, and each �
         {
           "placementID":3300081,
           "placementName":"Test Placement 1",
-          "editions":
+          "edition_schedules":
           [
             {
               "editionID":750001,
               "editionName":"My Brand 640x480",
-              "weight":50,
+              "weight":100,
               "policy":"",
-              "companionSeries":[]
+              "companionSeries":[],
+              "start":"2014-08-01 00:00:00",
+              "end":"2014-08-14 23:59:59"
             },
             {
               "editionID":750073,
               "editionName":"My Different Ad 640x480",
               "weight":50,
               "policy":"",
-              "companionSeries":[]
+              "companionSeries":[],
+              "start":"2014-08-15 00:00:00",
+              "end":"2014-08-29 23:59:59"
+            },
+            {
+              "editionID":750179,
+              "editionName":"Another Ad 640x480",
+              "weight":50,
+              "policy":"",
+              "companionSeries":[],
+              "start":"2014-08-15 00:00:00",
+              "end":"2014-08-29 23:59:59"
             }
           ]
         },
@@ -366,18 +379,27 @@ and an already-existing "campaignID" of the appropriate format.
 
 The input spreadsheet should be separated into a line per Placement-Edition, with the weight specified. For assigning companions. further lines are then created with the same Placement-Edition information, and a weighting and series ID for each Placement-Edition-Companion line. The “Series ID” is used to group multiple companions together; i.e. these will be served together alongside the same Placement-Edition. Please see [a sample assignment file](./samples/creative_assignment.xlsx).
 
+You can also schedule which Creatives or Companions run at a particular time on a Placement. Repeat each row with UTC Start and End dates for every scheduled period, setting the weight of each active Creative or Companion at the appropriate time. When uploading, the full schedule must be included and will take precedence over any previous schedules on each Placement. Please see [an example of creative scheduling](./samples/creative_assignment_schedules.xlsx).
+
 The spreadsheet *must* contain these column headers:
 
 * **Placement ID** - Telemetry Guid for the Placement, use getAssignments operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
 * **Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
 * **Weight** - The weighting for the Ad to be shown in relation to other ads on “rotation” for this Placement. Eg, 2 ads both at 50 weighting will each show half of the time. Note that if a Companion Creative ID is provided (see below) then this weighting describes that of the Companion on this combination. Note the weights numeric so they must not have double-quotes around them.
 
-And if Companions are required:
+If Companions are required:
 
 * **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type “Display/Companion”.  Note these are numeric so they must not have double-quotes around them.
 * **Companion Series** - Those Companion Creatives on the same Placement-Edition combination with a matching Companion Series identifier will be shown at the same time. Thus the weighting must match for each Companion in a series. The identifier can be anything you like, so long as it is unique to the combination.
+ 
+And if scheduling:
+
+* **Start** - SQL formatted date (and optional time) *in UTC* for the start of a scheduled creative, eg "2014-08-01 09:00:00". If only a date is specified, it assumed to be the start of the given day (00:00:00).
+* **End** - SQL formatted date (and optional time) *in UTC* for the end of a schedule creative. If only a date is specified, it is assumed to be the end of the given day (23:59:59). Within a placement's schedule, there must be no gaps and overlaps of time periods.
 
 Note that you can include name columns (e.g. Placement Name, Creative Name) for reference, though these are not used during the upload process.
+
+Note that when scheduling, the Creatives & Companions on the earliest time period will run from the moment of a successful `createTags` call until the given end date. Similarly, the Creatives on the latest time period will run indefinitely, until new schedules are uploaded, if a tag served beyond the given end date. If only one time block is specified, it will have the same effect as no schedule at all; these Creatives & Companions will run from now, indefinitely.
 
 Succesful Output:
 
