@@ -531,6 +531,39 @@ Successful Output:
 
     { "result": 1, "message": "Success", "data": [] }
 
+
+## setEditionPath
+
+Using the parameter `(campaignservice)setEditionPath` updates the details for a given Creative Edition ID and Creative Type. This will set the item (or add it if it does not exist) with the provided Path, Duration, Width, Height, and Bitrate properties.
+
+The input arguments must contain an Edition ID, a Type, and a set of Data.
+type
+data[height]
+data[width]
+data[bitrate]
+data[path]
+data[duration]
+
+The HTTP POST argument (application/x-www-form-urlencoded):
+
+* `editionID` should be set to the target edition ID,
+* `type` should be the type identifier of the creative item, currently supported types are:
+ * **quicktime** for MOV path
+* `data[width]` should be the width, in pixels, of the creative
+* `data[height]` should be the height, in pixels, of the creative
+* `data[bitrate]` should be the bitrate of the creative
+* `data[duration]` should be the length, in second, of the creative
+* `data[path]` should be the absolute path (including http:// or https://) to the creative.
+
+Example Input:
+
+    editionID=750001&type=quicktime&data[width]=640&data[height]=480&data[bitrate]=512&data[duration]=30&data[path]=http://www.mycreativepaths/my_files/ad_750001.mov
+
+Successful Output:
+
+    { "result": 1, "message": "Success", "data": [] }
+
+
 ## createTags
 
 Using the parameter `(campaignservice)createTags` will produce or update tags, to be served by the appropriate Vendor, for the given Campaign ID and Placement IDs. Tag production will take the required Placement, Creative, and Tracking information from previous steps, and publish tags on the corresponding Vendor’s own Tag Self Service page within TGX.
