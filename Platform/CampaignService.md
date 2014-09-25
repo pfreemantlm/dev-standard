@@ -404,6 +404,7 @@ Note that when scheduling, the Creatives & Companions on the earliest time perio
 Succesful Output:
 
     { "result": 1, "message": "Success", "data": [] }
+    
 
 ## getTracking
 
@@ -416,7 +417,7 @@ Sample input:
 
     campaignID=642001
 
-The output shows assignments, minus weighting information, alongside tracking data (types and sets of pixel URLs). In the example output, a Placement-Edition has 2 "Ad Start" pixels, and a Placement-Edition-Companion contains both 1 "Ad Start" pixel and 1 "Clickthrough" tracking pixel:
+The output shows assignments, minus weighting information, alongside tracking data (types and sets of pixel URLs). Note that a tracking pixel URL will appear if *any* of the tags associated with the placement includes the pixel; some of the tags may have had the URL excluded during `uploadTracking`. In the example output, a Placement-Edition has 2 "Ad Start" pixels, and a Placement-Edition-Companion contains both 1 "Ad Start" pixel and 1 "Clickthrough" tracking pixel:
 
     {
       "success":true,
@@ -525,6 +526,20 @@ If Companions are being assigned to, there will be an additional column:
 
 * **Companion Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs - should match a Creative of type "Display/Companion". Note these are numeric so they must not have double-quotes around them.
 
+And if you wish to exclude one or more tag types from being assigned the tracking pixel, include the optional column:
+
+* **Exclude Tags** - separate each tag type with a pipe ("|") eg "VAST2_AS2|VAST2_LINEAR". Available tag type values are:
+ * **VAST2_AS3**
+ * **VAST2_LINEAR**
+ * **VPAID_HTML5**
+ * **MRAID**
+ * **MRAID_JAVASCRIPT**
+ * **IMPRESSION**
+ * **HTML**
+ * **JAVASCRIPT**
+ * **CAROUSEL**
+ 
+ 
 Note that you can include name columns (e.g. Placement Name, Creative Name) for reference, though these are not used during the upload process.
 
 Successful Output:
