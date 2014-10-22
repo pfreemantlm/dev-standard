@@ -164,7 +164,6 @@ The spreadsheet *must* contain these column headers:
 * **Placement Name** - should be unique to the Vendor and Campaign
 * **Site Name** - Vendor’s name
 * **Start Date**
-* **Io Id** - IO number (optional) if supplied by the agency
 * **End Date** - signifies range for the given "flight" - dates should be SQL formatted, eg 2014-01-27
 * **Units** - planned number of deliveries for the given date range
 * **Type** - the type of Placement; can be one of: 
@@ -191,6 +190,7 @@ The spreadsheet *may* have these column headers:
 
 * **Telemetry GUID** - supply an existing placement ID to modify the details and/or plan of this placement
 * **External Ref** - the client’s own identifier for the placement, for easier reference in reporting
+* **Io Id** - IO number if supplied by the agency
 
 Successful Output:
 
