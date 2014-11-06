@@ -398,6 +398,11 @@ And if scheduling:
 * **Start** - SQL formatted date (and optional time) *in UTC* for the start of a scheduled creative, eg "2014-08-01 09:00:00". If only a date is specified, it assumed to be the start of the given day (00:00:00).
 * **End** - SQL formatted date (and optional time) *in UTC* for the end of a schedule creative. If only a date is specified, it is assumed to be the end of the given day (23:59:59). Within a placement's schedule, there must be no gaps and overlaps of time periods.
 
+Additional optional values:
+
+* **Policy** - Rules to apply during tag serving for the placement edition. e.g. MMCOUNTRY=225 will ensure tags are only served to client IP addresses that are identified to be within the USA via geolocation. A full list and description of supported policies is described in another document (TBD).
+* **ISCI Code** - The ISCI code of the Video creative being assigned to the placement. This property should only be set on rows that represent the primary video weighting, not in companion assignment rows.
+
 Note that you can include name columns (e.g. Placement Name, Creative Name) for reference, though these are not used during the upload process.
 
 Note that when scheduling, the Creatives & Companions on the earliest time period will run from the moment of a successful `createTags` call until the given end date. Similarly, the Creatives on the latest time period will run indefinitely, until new schedules are uploaded, if a tag served beyond the given end date. If only one time block is specified, it will have the same effect as no schedule at all; these Creatives & Companions will run from now, indefinitely.
