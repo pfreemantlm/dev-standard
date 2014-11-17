@@ -102,7 +102,7 @@ Successful Output:
 
 ## getCampaigns
 
-Using the parameter `(campaignservice)getCampaigns` will return a mapping of ID:Name for Campaigns belonging to the provided Advertiser and year. A Campaign ID will be required for subsequent operations to manage Placements, Creatives, and Tags within that Campaign.
+Using the parameter `(campaignservice)getCampaigns` will return a mapping of ID:Name for Campaigns belonging to the provided Advertiser and year (under `campaigns`). A Campaign ID will be required for subsequent operations to manage Placements, Creatives, and Tags within that Campaign. The call also shows start & end dates for each campaign (under `campaignDates`), and whether or not a campaign is using "Advertiser Policies" (under `hasAdvertiserPolicies`). This latter flag should be used to determine whether not to use "Products" in the "Type" column during the `uploadPlans` call.
 
 The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" should be set to the advertiser ID,
 and the target campaign year as "year" should be supplied.
@@ -119,6 +119,16 @@ Example Output:
       {
         "642001":"Renamed Campaign [2014]",
         "642002":"Campaign Two [2014]"
+      },
+      "campaignDates":
+      {
+        "642001":{ "start":"2014-01-01", "end":"2014-12-31" },
+        "642002":{ "start":"2014-01-07", "end":"2014-12-01" }
+      },
+      "hasAdvertiserPolicies":
+      {
+        "642001":false,
+        "642002":true
       }
     }
     
@@ -166,11 +176,7 @@ The spreadsheet *must* contain these column headers:
 * **Start Date**
 * **End Date** - signifies range for the given "flight" - dates should be SQL formatted, eg 2014-01-27
 * **Units** - planned number of deliveries for the given date range
-* **Type** - the type of Placement; can be one of: 
- * Online Video
- * Display
- * Mobile
- * Package - will not contain tag items unless items are moved under it, using the packageItems function.
+* **Type** - the type of Placement, or the type of Product which this item belongs to. Valid options are detailed below [1].
 * **Cost Structure** - designates the method of payment for deliveries on the Placement; can be one of: 
  * CPM (cost per 1000 ad deliveries)
  * CPC (cost per ad click)
@@ -178,7 +184,13 @@ The spreadsheet *must* contain these column headers:
  * Fixed
  * Free
 * **Rate** - the amount, in USD, of the rate of payment in relation to the provided Cost Structure
-* **Tracking Level** - signifies the integration level of tags produced for this Placement; can be one of: 
+
+The spreadsheet *may* have these column headers:
+
+* **Telemetry GUID** - supply an existing placement ID to modify the details and/or plan of this placement
+* **External Ref** - the client’s own identifier for the placement, for easier reference in reporting
+* **Io Id** - IO number if supplied by the agency
+* **Tracking Level** - signifies the integration level of tags produced for this Placement, required when *not* using a "Product" in the "Type" column; can be one of: 
  * Integrated
  * VPAID
  * Mid Level
@@ -186,11 +198,30 @@ The spreadsheet *must* contain these column headers:
  * Hulu
  * Hulu and Integrated
 
-The spreadsheet *may* have these column headers:
+[1] the valid "Type" options depend on whether or not the campaign is set up to use "Advertiser Policies". If enabled, the Advertiser will be set in the system to use one or more "Products". Use of these Products is to generally indicate a set of different Placement types under a single planned line item. The value of `hasAdvertiserPolicies` within the `getCampaigns` response indicates, for each campaign, whether or not it is using Advertiser Policies, and thus using Products.
 
-* **Telemetry GUID** - supply an existing placement ID to modify the details and/or plan of this placement
-* **External Ref** - the client’s own identifier for the placement, for easier reference in reporting
-* **Io Id** - IO number if supplied by the agency
+If using Advertiser Policies and Products, the Type value can be one of these groupings, or invidual products:
+
+* **Desktop** or **Online Video**, contains Products:
+ * Desktop Video
+ * On Hulu
+ * Site Served
+ * On YouTube
+* **Mobile**, contains Products:
+ * Mobile Video
+ * On Hulu Plus
+* **Cross Device**, contains the Products for both *Mobile* and *Desktop*
+* **Display**, a single-product grouping, for Banner items (not currently in use)
+* **Package** - not a Product type or group, but allows tag items to be moved under it, using the packageItems function.
+
+When a grouping is used, Placements are created for all Products under the grouping which are currently enabled for the Advertiser in the system, as per their policies.
+
+Otherwise, if we are not using Products, then Type can be one of:
+
+* **Online Video**
+* **Display**
+* **Mobile**
+* **Package** - will not contain tag items unless items are moved under it, using the packageItems function.
 
 Successful Output:
 
@@ -309,6 +340,7 @@ The JSON returned describes the Creatives assigned to each Placement, and each "
         {
           "placementID":3300081,
           "placementName":"Test Placement 1",
+          "vendorProducts":["Desktop Video", "Mobile Video"]
           "edition_schedules":
           [
             {
@@ -343,6 +375,7 @@ The JSON returned describes the Creatives assigned to each Placement, and each "
         {
           "placementID":3300082,
           "placementName":"Test Placement 2",
+          "vendorProducts":["Desktop Video","On Hulu"],
           "editions":
           [
             {
@@ -370,6 +403,8 @@ The JSON returned describes the Creatives assigned to each Placement, and each "
         }
       ]
     }
+    
+Note that the data also describes the Placement items in terms of ID, Name, and "Vendor Products" (if the campaign is using "Advertiser Policies"). We can use this information to validate the results of `uploadPlans`, before we assign any creatives - the returned objects will show each Placement, but with no Creatives assigned.
 
 ## uploadAssignments
 
@@ -512,7 +547,7 @@ The spreadsheet *must* contain these column headers:
 
 * **Placement ID** - Telemetry Guid for the Placement, use getAssignments operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
 * **Creative ID** - Telemetry Guid for the Creative, use getCreatives operation to figure out the correct IDs. Note these are numeric so they must not have double-quotes around them.
-* **Tracking Type** - the event we want to fire a pixel for; can be one:
+* **Tracking Type** - the event we want to fire a pixel for; can be one of:
  * **Ad Request** (when the ad is requested by the player/hosting site)
  * **Ad Start** (when the ad begins playback)
  * **Click Event** (tracks when the user clicks on the ad)
@@ -580,6 +615,35 @@ Example Input:
 
     editionID=750001&type=quicktime&data[width]=640&data[height]=480&data[bitrate]=512&data[duration]=30&data[path]=http://www.mycreativepaths/my_files/ad_750001.mov
 
+Successful Output:
+
+    { "result": 1, "message": "Success", "data": [] }
+
+
+## setBannerPaths
+
+Using the parameter `(campaignservice)setBannerPaths` updates the details for a given Creative Edition ID. This will set the item (or add it if it does not exist) with the provided banner Paths, Width and Height properties.
+
+The input arguments must contain an Edition ID and a set of Data.
+data[height]
+data[width]
+data[raw-swf-path]
+data[raw-jpg-path]
+data[raw-gif-path]
+
+The HTTP POST argument (application/x-www-form-urlencoded):
+
+* `editionID` should be set to the target edition ID,
+* `data[width]` should be the width, in pixels, of the creative
+* `data[height]` should be the height, in pixels, of the creative
+* `data[raw-swf-path]` should be the absolute path (including http:// or https://) to the swf banner file.
+* `data[raw-jpg-path]` should be the absolute path (including http:// or https://) to the jpg banner file.
+* `data[raw-gif-path]` should be the absolute path (including http:// or https://) to the gif banner file.
+
+Example Input:
+
+    editionID=750101&data[width]=300&data[height]=60&data[raw-swf-path]=http://www.mycreativepaths/my_files/ad_750001.swf&data[raw-jpg-path]=http://www.mycreativepaths/my_files/ad_750001.jpg
+    
 Successful Output:
 
     { "result": 1, "message": "Success", "data": [] }
