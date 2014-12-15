@@ -75,18 +75,21 @@ Example Output:
 
 ## manageCampaign
 
-Using the parameter `(campaignservice)manageCampaign` will create a new Campaign, or update an existing Campaign, using the supplied JSON data. Each Campaign is linked to an Advertiser and a Brand, and is a container for Placements used to deliver ads for that Brand. If an ID is supplied for an existing Campaign, that Campaign will be updated (see getCampaigns below to retrieve existing IDs from the system).
+Using the parameter `(campaignservice)manageCampaign` will create a new Campaign, or update an existing Campaign, using the supplied JSON data. Each Campaign is linked to an Advertiser and a Brand, and is a container for Placements used to deliver ads for that Brand. If an ID is supplied for an existing Campaign, that Campaign will be updated (see getCampaigns below to retrieve existing IDs from the system). In a campaign update, if either the year or the group suffix specified is different that that previously used for the campaign, then the campaign will be moved into a new group using the supplied options.
 
 The input for a new Campaign requires an Advertiser ID (see getAdvertisers above), and a set of data representing the Campaign: this should contain a year, a brand name, and SQL-formatted start and end dates. Example:
 
 The HTTP POST argument (application/x-www-form-urlencoded):
 
-* `advertiserID` should be set to the advertiser ID,
-* `data[title]` should be the (display) name of the campaign,
+* `advertiserID` should be set to the advertiser ID
+* `data[title]` should be the (display) name of the campaign
 * `data[year]` should be the campaign year (usually the same as the start date)
 * `data[brand]` should be the string name of the Brand (but matching something returned from getBrands above)
 * `data[start]` should be the ISO-formatted start date
 * `data[end]` should be the ISO-formatted end date
+* `data[brand]` should be set to the brand name
+* `data[groupSuffix]` optionally specifies the group name suffix to use (default is Telemetry)
+* `data[country]` optionally specifies the name of the country (default is USA)
 
 Example Input:
 
