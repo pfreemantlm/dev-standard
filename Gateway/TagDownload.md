@@ -2,7 +2,25 @@ Telemetry TagDownload
 =========================
 TagDownload is the name of a HTTP GET-based interface of retrieving tags from the Telemetry Platform. 
 
-Tags are downloaded in a bundle by-campaign
+Tags are downloaded in ZIP files in a bundle by-group. Inside the ZIP file is a number of folders and "tag files"
+which delivery should be sent to. The folder names match the "Telemetry Tag Name" which can be obtained from [Telemetry SimpleReporting](./SimpleReporting.md).
+
+* `In-Player GUID.txt` - Used by bespoke integrations
+* `Creative Pixels.txt` - list of pixels to fire for site-served traffic
+* `Creative Paths.txt` - list of urls that HQ site-served creatives can be downloaded from
+* `Companion Ad HTML.txt` - HTML "iframe"-based companion tag, used when companions are trafficked separately
+* `Companion Ad JavaScript.txt` - HTML "script tag"-based companion tag, used when companions are trafficked separately
+* `Companion Creative Paths.txt` - list of urls that the raw companions can be downloaded from
+* `Companion Pixel Click URL.txt` - list of clickthrough pixels for the companion
+* `Companion Pixel Impact URL.txt` - list of "impression" pixels for the companion
+* `MRAID Javascript Tag.txt` - HTML-based "script tags" to load an MRAID interstitial
+* `MRAID URL Tag.txt` - The URL of the MRAID interstitial
+* `VAST 2 Linear URL.txt` - a url that returns IAB Standard VAST; the `<MediaFile>` will be a linear video (MP4/WEBM/etc)
+* `VAST 2 Linear Wrapper.txt` - an IAB XML-formatted VAST Wrapper for the above
+* `In-Player VAST 2 -ActionScript 3-0- VPAID URL.txt` - a url that eturns IAB Standard VAST; the `<MediaFile>` will be VPAID for Desktop
+* `In-Player VAST 2 -ActionScript 3-0- VPAID Wrapper.txt` - an IAB XML-formatted VAST Wrapper for the above.
+* `HTML5 VPAID Javascript Tag URL.txt` - a url that eturns IAB Standard VAST; the `<MediaFile>` will be VPAID2.0 JavaScript
+* `HTML5 VPAID Javascript Tag Wrapper.txt` - an IAB XML-formatted VAST Wrapper for the above.
 
 ##Composing the Export URL
 
@@ -32,9 +50,9 @@ You can use tranche values obtained from the [Data Dictionary](#Data Dictionary)
 
 This is a required filter. 
 
-You can use any Telemetry Placement GUID here, or you can use the special string "all" (without the quotes).
+You can use any Telemetry Package GUID here, or you can use the special string "all" (without the quotes).
 
-Placement GUIDs can be obtained using [Telemetry SimpleReporting](./SimpleReport.md).
+Package GUIDs can be obtained using [Telemetry SimpleReporting](./SimpleReport.md).
 
 
 ##Data Dictionary
