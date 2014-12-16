@@ -86,7 +86,7 @@ You can obtain a data dictionary by making an authenticated request to: *endpoin
 The `/Menu/Dictionary/` interface actually supports all of the same Telemetry Platform parameters that are available in exporting which can be used to
 drastically reduce the size of the dictionary *if so desired*.
 
-From the root keys:
+From the root, there are a number of keys:
 
 ###Fields
 
@@ -141,7 +141,8 @@ The `vargroup` is a label that may be used as another dimention for grouping met
 
 ###Award, Advertiser, Brand, Campaign, Region, Tranche, Vendor
 
-These contain maps whose values are themselves maps, and can be used to look up Telemetry GUIDs.
+These keys contain maps whose values are themselves maps, and can be used to look up Telemetry GUIDs.
+
 
     {
         "Tranche": {

@@ -46,6 +46,18 @@ This is a required filter.
 
 You can use tranche values obtained from the [Data Dictionary](#Data Dictionary).
 
+###(campaign)
+
+This is an optional filter.
+
+You can use campaign values obtained from the [Data Dictionary](#Data Dictionary).
+
+###(brand)
+
+This is an optional filter.
+
+You can use brand values obtained from the [Data Dictionary](#Data Dictionary).
+
 ###(package)
 
 This is a required filter. 
@@ -57,16 +69,18 @@ Package GUIDs can be obtained using [Telemetry SimpleReporting](./SimpleReport.m
 
 ##Data Dictionary
 
-Note this is the same format as the [Telemetry SimpleReporting](./SimpleReporting.md), but only the Tranche (group) field is used.
+Note this is the same format as the [Telemetry SimpleReporting](./SimpleReporting.md), but only the Tranche, Campaign, and Brand keys are used here.
 
 You can obtain a data dictionary by making an authenticated request to: *endpointurl*`/Menu/Dictionary/(report)MerlinOverview/(advertiser)`*advertiserguid* and consuming the JSON output.
 
 The `/Menu/Dictionary/` interface actually supports all of the same Telemetry Platform parameters that are available in exporting which can be used to
 drastically reduce the size of the dictionary *if so desired*.
 
-From the root, there is a "Tranche" key.
+From the root, there are a number of keys that are fully documented in [Telemetry SimpleReporting](./SimpleReporting.md):
 
-It contain maps whose values are themselves maps, and can be used to look up Telemetry GUIDs.
+###Brand, Campaign, Tranche
+
+These keys contain maps whose values are themselves maps, and can be used to look up Telemetry GUIDs.
 
     {
         "Tranche": {
