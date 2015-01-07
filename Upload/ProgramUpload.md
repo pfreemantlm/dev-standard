@@ -7,12 +7,15 @@ Your program does a HTTPS POST to https://tartmaster.telemetry.com/ which is pro
 * `id` The GUID of the upload (normally a git commit ID; try: `git log --pretty=format:'%h' -n 1`)
 * `src` The source name (e.g. sauron, as3, roy)
 
+The ZIP file must not have a "base" directory, e.g. create with:
+
+    zip -j file.zip path/to/whatever.js path/to/whatever.swf ...
+
 The HTTP response code will be one of the following:
 
 * `200` - the body is the path segment `/tv2n/p/`*src*`/`*id*`/`
 * `504` - the file is being transferred to the CDN; sleep 1 second and try again
 
 All other errors are permanent failures. Review the response text for guidance.
-
 
 
