@@ -138,9 +138,9 @@ Example Output:
     
 ## hideCampaign
 
-Using the parameter `(campaignservice)hideCampaign` will ensure the given Campaign has been removed from all Groups, effectively hiding the Campaign from reporting. It will also clear any pending data on this Campaign (which may have occured during a manageCampaign or uploadPlans error). Please be aware that once a Campaign is hidden, you will be unable to re-attach it to reporting later.
+Using the parameter `(campaignservice)hideCampaign` will ensure the given Campaign has been removed from all Groups, effectively hiding the Campaign from reporting. It will also clear any pending data on this Campaign (which may have occured during a manageCampaign or uploadPlans error).
 
-The input for a new Campaign requires a Campaign ID (see getCampaigns above). 
+The input for hideCampaign requires only a Campaign ID (see getCampaigns above). 
 
 Example Input:
 
@@ -152,7 +152,33 @@ Successful Output:
 
      { "result": 1, "message": "Success", "data": [] }
 
-    
+
+Once hidden, a Campaign can only be brought back into reporting using the [unhideCampaign](#unhideCampaign) call, with details of the year/group name it is to be assigned to.
+
+
+## unhideCampaign
+
+Using the parameter `(campaignservice)unhideCampaign` will ensure the given Campaign is available in reporting, by attaching it to a Group matching the given Advertiser, year, and (if specificed) group name suffix. If a Group cannot be found matching the given data, an error will be returned - the Group must exist from a previous manageCampaign call.
+
+The input to un-hide a Campaign requires an Advertiser ID (see getAdvertisers above), and a set of data to assign the Campaign: this should contain at least a valid Campaign ID, and year. Example:
+
+The HTTP POST argument (application/x-www-form-urlencoded):
+
+* `advertiserID` should be set to the advertiser ID
+* `data[campaignID]` should be set to the campaign ID
+* `data[year]` should be the campaign year
+* `data[groupSuffix]` optionally specifies the group name suffix to use (default is Telemetry)
+
+Example Input:
+
+    advertiserID=800001&data[year]=2015&&data[campaignID]=642001
+
+Successful Output:
+
+     { "result": 1, "message": "Success", "data": [] }
+
+
+
 ## getVendors
 
 
