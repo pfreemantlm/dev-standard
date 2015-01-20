@@ -136,6 +136,23 @@ Example Output:
     }
     
     
+## hideCampaign
+
+Using the parameter `(campaignservice)hideCampaign` will ensure the given Campaign has been removed from all Groups, effectively hiding the Campaign from reporting. It will also clear any pending data on this Campaign (which may have occured during a manageCampaign or uploadPlans error). Please be aware that once a Campaign is hidden, you will be unable to re-attach it to reporting later.
+
+The input for a new Campaign requires a Campaign ID (see getCampaigns above). 
+
+Example Input:
+
+    campaignID=642001
+
+Example Response:
+
+Successful Output:
+
+     { "result": 1, "message": "Success", "data": [] }
+
+    
 ## getVendors
 
 
