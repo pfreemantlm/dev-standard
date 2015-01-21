@@ -158,7 +158,7 @@ Once hidden, a Campaign can only be brought back into reporting using the [unhid
 
 ## unhideCampaign
 
-Using the parameter `(campaignservice)unhideCampaign` will ensure the given Campaign is available in reporting, by attaching it to a Group matching the given Advertiser, year, and (if specificed) group name suffix. If a Group cannot be found matching the given data, an error will be returned - the Group must exist from a previous manageCampaign call.
+Using the parameter `(campaignservice)unhideCampaign` will ensure the given Campaign is available in reporting, by attaching it to a Group matching the given Advertiser, year, and (if specificed) a group name suffix and country name. If a Group cannot be found matching the given data, an error will be returned - the Group must exist from a previous manageCampaign call.
 
 The input to un-hide a Campaign requires an Advertiser ID (see getAdvertisers above), and a set of data to assign the Campaign: this should contain at least a valid Campaign ID, and year. Example:
 
@@ -168,10 +168,11 @@ The HTTP POST argument (application/x-www-form-urlencoded):
 * `data[campaignID]` should be set to the campaign ID
 * `data[year]` should be the campaign year
 * `data[groupSuffix]` optionally specifies the group name suffix to use (default is Telemetry)
+* `data[country]` optionally specifies the country to use (default is USA)
 
 Example Input:
 
-    advertiserID=800001&data[year]=2015&&data[campaignID]=642001
+    advertiserID=800001&data[year]=2015&data[campaignID]=642001
 
 Successful Output:
 
