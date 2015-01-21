@@ -136,6 +136,50 @@ Example Output:
     }
     
     
+## hideCampaign
+
+Using the parameter `(campaignservice)hideCampaign` will ensure the given Campaign has been removed from all Groups, effectively hiding the Campaign from reporting. It will also clear any pending data on this Campaign (which may have occured during a manageCampaign or uploadPlans error).
+
+The input for hideCampaign requires only a Campaign ID (see getCampaigns above). 
+
+Example Input:
+
+    campaignID=642001
+
+Example Response:
+
+Successful Output:
+
+     { "result": 1, "message": "Success", "data": [] }
+
+
+Once hidden, a Campaign can only be brought back into reporting using the [unhideCampaign](#unhideCampaign) call, with details of the year/group name it is to be assigned to.
+
+
+## unhideCampaign
+
+Using the parameter `(campaignservice)unhideCampaign` will ensure the given Campaign is available in reporting, by attaching it to a Group matching the given Advertiser, year, and (if specificed) a group name suffix and country name. If a Group cannot be found matching the given data, an error will be returned - the Group must exist from a previous manageCampaign call.
+
+The input to un-hide a Campaign requires an Advertiser ID (see getAdvertisers above), and a set of data to assign the Campaign: this should contain at least a valid Campaign ID, and year. Example:
+
+The HTTP POST argument (application/x-www-form-urlencoded):
+
+* `advertiserID` should be set to the advertiser ID
+* `data[campaignID]` should be set to the campaign ID
+* `data[year]` should be the campaign year
+* `data[groupSuffix]` optionally specifies the group name suffix to use (default is Telemetry)
+* `data[country]` optionally specifies the country to use (default is USA)
+
+Example Input:
+
+    advertiserID=800001&data[year]=2015&data[campaignID]=642001
+
+Successful Output:
+
+     { "result": 1, "message": "Success", "data": [] }
+
+
+
 ## getVendors
 
 
@@ -438,7 +482,7 @@ And if scheduling:
 
 Additional optional values:
 
-* **Policy** - Rules to apply during tag serving for the placement edition. e.g. MMCOUNTRY=225 will ensure tags are only served to client IP addresses that are identified to be within the USA via geolocation. A full list and description of supported policies is described in another document (TBD).
+* **Policy** - Rules to apply during tag serving for the placement edition. The value in this column reads like a set of GET-line arguments, eg "MMCOUNTRY=225&DMA=\*gHAAACQygIBCIQADACA\*YAAAABA\*oCAAAw=". Some examples of Policy rules include MMCOUNTRY, MMDMA, and DMA - more details of the Policies can be found in [this document](./PolicyRules.md).
 * **ISCI Code** - The ISCI code of the Video creative being assigned to the placement. This property should only be set on rows that represent the primary video weighting, not in companion assignment rows.
 
 Note that you can include name columns (e.g. Placement Name, Creative Name) for reference, though these are not used during the upload process.
