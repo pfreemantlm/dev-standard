@@ -14,23 +14,67 @@ and you wish to perform the [searchApps](#searchApps) function, you perform an H
 
 ## searchApps
 
-Returns a mapping of ID:Name for Apps matching the given search string. The input consists of a search string, which needs to be 3 or more characters in length.
+Returns details for Apps matching the given ID search string (**"search"**). The input consists of a search string, which needs to be 3 or more characters in length. 
 
-Example:
+By default, all App Stores are searched by matching ID, or a Store Identifier (**"storeID"**) can be provided to search within the relevant store. The available store IDs are:
+
+* **1** = iTunes
+* **2** = Google Play
+
+Each item in the returned list contains details for an individual app, including Telemetry's own unique ID for further queries in the API. The details are:
+
+* **telemetryID** = our own unique identifier for an app; use this in subsequent API calls.
+* **storeKey** = the ID used for this app in the relevant store
+* **bundleID** (optional) = additional ID referencing the app's package within the iTunes store only.
+* **store** = the App Store where this app can be found (eg, iTunes)
+* **os** = the platform for this application (eg, iOS)
+* **name** = Title of the app
+* **developer** = Name of the developer (person/company)
+* **status** = Tells us if we have data for the app, or if it's new. Possible values are: 'NODATA', 'NEW', and 'OK'
+* **addedOn** = The date at which we entered the application into our App Database
+
+Example (looks in all stores):
 
     {
-      "search": "Tel"
+      "search": "605"
     }
 
+Example (in the iTunes/Apple Store only):
+
+    {
+      "search": "389",
+      "storeID": 1
+    }
+    
 Example Output:
 
     {
-      "success":true,
-      "apps":
-      {
-        "aabbcc123456":"Telemetry iPhone Sample App",
-        "aabbcd123499":"Telemetry Android Test"
-      }
+        "success":true,
+        "apps":
+        [
+            {
+                "telemetryID": 6,
+                "storeKey": 389129317
+                "bundle": "info.smartpocket.ebook590",
+                "store": 1,
+                "os": iOS,
+                "name": "Christmas Sunshine",
+                "developer": "DSG",
+                "status": "OK",
+                "addedOn": "2015-01-15 12:30:12"
+            },
+            {
+                "telemetryID": 673,
+                "storeKey": 389306390
+                "bundle": "HindiSms",
+                "store": 1,
+                "os": 1,
+                "name": "Hindi SMS",
+                "developer": "JOSE CHERIAN",
+                "status": "OK",
+                "addedOn": "2015-01-15 12:30:12"
+            }
+        ]
     }
 
 
