@@ -1,7 +1,7 @@
 Telemetry Audit API - Apps
 ==========================
 
-Apps Audiding uses HTTP POST against *endpointurl*`/User/(appaudit)`*functionname* for example if your test service is:
+Apps Audiding uses HTTP POST against *endpointurl*`/Audit/(apps)`*functionname* for example if your test service is:
 
     url=https://test5823901.telemetry.com/
     username=x
@@ -9,7 +9,7 @@ Apps Audiding uses HTTP POST against *endpointurl*`/User/(appaudit)`*functionnam
 
 and you wish to perform the [searchApps](#searchApps) function, you perform an HTTP post against:
 
-    https://test5823901.telemetry.com/User/(appaudit)searchApps
+    https://test5823901.telemetry.com/Audit/(apps)searchApps
 
 
 ## searchApps
