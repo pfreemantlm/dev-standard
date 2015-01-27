@@ -80,7 +80,7 @@ Receives information relating to an observation made on a given app. Provide the
 
 The received output will be confirmation of the full observation data, with the following additions which are recorded after the submission:
 
-* **created_on** - Timestamp for when the observation was recorded.
+* **created_on** - Time/Date when the observation was recorded (SQL format).
 * **created_by** - User who recorded the observation (username).
 
 Example:
@@ -106,7 +106,7 @@ Example output:
         "observations":
         [
             {
-                "created_on": 1234678000, 
+                "created_on": "2015-01-25 11:35:01", 
                 "created_by": "jdoe"
                 "time_spent": 60, 
                 "visible": true, 
@@ -140,7 +140,7 @@ Example Output:
         "observations":
         [
             {
-                "created_on": 1234678000, 
+                "created_on": "2015-01-25 11:35:01", 
                 "created_by": "jdoe"
                 "time_spent": 60, 
                 "visible": true, 
@@ -151,7 +151,7 @@ Example Output:
                 "never_saw_ad": false
             },
             {
-                "created_on": 1234242000, 
+                "created_on": "2015-01-25 12:10:50", 
                 "created_by": "rhead"
                 "time_spent": 60, 
                 "visible": true, 
