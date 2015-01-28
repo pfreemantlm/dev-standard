@@ -135,7 +135,26 @@ Example Output:
       }
     }
     
-    
+
+## getCampaignPlanEnd
+
+Using the parameter `(campaignservice)getCampaignPlanEnd` will search all Placements' plans within the given campaign *after* the given threshold and return the date on which the final plan ends. If all plans end *before* the given threshold, the return valid will be 0. The return value is provided in the "end" variable of the output.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" should be set to the campaign ID,
+and the threshold is provided in SQL-format (date only)  as "threshold".
+
+Example Input:
+
+    campaignID=642001&threshold=2015-01-27
+
+Example Output:
+
+    {
+      "success":true,
+      "end": "2015-02-28"
+    }
+
+
 ## hideCampaign
 
 Using the parameter `(campaignservice)hideCampaign` will ensure the given Campaign has been removed from all Groups, effectively hiding the Campaign from reporting. It will also clear any pending data on this Campaign (which may have occured during a manageCampaign or uploadPlans error).
