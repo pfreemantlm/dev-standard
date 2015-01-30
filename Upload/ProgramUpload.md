@@ -1,7 +1,7 @@
 Telemetry Program Upload
 ========================
 
-Your program does a HTTPS POST to https://tartmaster.telemetry.com/ which is protected by IPSEC.
+Your program does a HTTPS POST to https://tartmaster.telemetry.com/deployplayer.php which is protected by IPSEC.
 
 * `file` A ZIP file of the assets to deploy
 * `id` The GUID of the upload (normally a git commit ID; try: `git log --pretty=format:'%h' -n 1`)
