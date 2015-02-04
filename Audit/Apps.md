@@ -31,6 +31,7 @@ Each item in the returned list contains details for an individual app, as follow
 * **added_on** = The date at which we entered the application into our App Database
 
 Example Input:
+
     {
       "search": "ebo",
       "store": "iTunes"
@@ -84,6 +85,7 @@ The received output will be confirmation of the full observation data, with the 
 * **created_by** - User who recorded the observation (username).
 
 Example:
+
     {
         "bundleID": "com.stimunationgames.stuntmanbob",
         "store": "Google Play"
