@@ -89,6 +89,70 @@ Example Output (all stores):
     }
 
 
+## getTopApps
+
+Receives information for those Apps which delivered the most within a given time period. This can be called with no arguments, and as such defaults to the top 50 Apps within the last 24 hours. A specific time range (**"start"** and **"end"**) can be provided in SQL format, as can an optional size of return list (**"limit"**). You can also specify the (**"store"**) to show top Apps only within that store.
+
+The output of this function matches that of [searchApps](#searchApps) with the addition of delivery information for each App instance, including:
+
+* TODO: document and add delivery vars to example!
+
+Example input showing overrides:
+
+    {
+      "start": "2015-01-01 00:00:00",
+      "end": "2015-02-01 00:00:00",
+      "limit": 100,
+      "store": "iOS"
+    }
+
+Example output:
+
+    {
+        "success":true,
+        "apps":
+        {
+            "info.smartpocket.ebook590":
+            {
+                [
+                    "telemetryID": 6,
+                    "bundleID": "info.smartpocket.ebook590",
+                    "store": "iTunes",
+                    "os": "iOS",
+                    "name": "Christmas Sunshine",
+                    "developer": "DSG",
+                    "status": "OK",
+                    "added_on": "2015-01-15 12:30:12",
+                    "TODO": "some info"
+                ],
+                [
+                    "telemetryID": 6215,
+                    "bundleID": "info.smartpocket.ebook590",
+                    "store": "Google Play",
+                    "os": "Android",
+                    "name": "Christmas Sunshine",
+                    "developer": "DSG",
+                    "status": "OK",
+                    "added_on": "2015-01-15 12:39:44"
+                ]
+            },
+            "at.fms-datenfunk.MobileBookingAmager":
+            {
+                [
+                    "telemetryID": 806,
+                    "bundle": "at.fms-datenfunk.MobileBookingAmager",
+                    "store": "iTunes",
+                    "os": "iOS",
+                    "name": "Taxi Denmark",
+                    "developer": "fms Datenfunk GmbH",
+                    "status": "OK",
+                    "added_on": "2015-01-15 12:30:12"
+                ]
+            }
+        }
+    }
+
+
 ## addObservation
 
 Receives information relating to an observation made on a given app. Provide the Bundle ID (**"bundleID"**), App Store (**"store"**) and an object (**"data"**) for the following observation areas:
