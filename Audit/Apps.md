@@ -50,8 +50,8 @@ Example Output (all stores):
         "apps":
         {
             "info.smartpocket.ebook590":
-            {
-                [
+            [
+                {
                     "telemetryID": 6,
                     "bundleID": "info.smartpocket.ebook590",
                     "store": "iTunes",
@@ -60,8 +60,8 @@ Example Output (all stores):
                     "developer": "DSG",
                     "status": "OK",
                     "added_on": "2015-01-15 12:30:12"
-                ],
-                [
+                },
+                {
                     "telemetryID": 6215,
                     "bundleID": "info.smartpocket.ebook590",
                     "store": "Google Play",
@@ -70,11 +70,11 @@ Example Output (all stores):
                     "developer": "DSG",
                     "status": "OK",
                     "added_on": "2015-01-15 12:39:44"
-                ]
-            },
+                }
+            ],
             "at.fms-datenfunk.MobileBookingAmager":
-            {
-                [
+            [
+                {
                     "telemetryID": 806,
                     "bundle": "at.fms-datenfunk.MobileBookingAmager",
                     "store": "iTunes",
@@ -83,8 +83,8 @@ Example Output (all stores):
                     "developer": "fms Datenfunk GmbH",
                     "status": "OK",
                     "added_on": "2015-01-15 12:30:12"
-                ]
-            }
+                }
+            ]
         }
     }
 
@@ -113,8 +113,8 @@ Example output:
         "apps":
         {
             "info.smartpocket.ebook590":
-            {
-                [
+            [
+                {
                     "telemetryID": 6,
                     "bundleID": "info.smartpocket.ebook590",
                     "store": "iTunes",
@@ -122,10 +122,9 @@ Example output:
                     "name": "Christmas Sunshine",
                     "developer": "DSG",
                     "status": "OK",
-                    "added_on": "2015-01-15 12:30:12",
-                    "TODO": "some info"
-                ],
-                [
+                    "added_on": "2015-01-15 12:30:12"
+                },
+                {
                     "telemetryID": 6215,
                     "bundleID": "info.smartpocket.ebook590",
                     "store": "Google Play",
@@ -134,11 +133,11 @@ Example output:
                     "developer": "DSG",
                     "status": "OK",
                     "added_on": "2015-01-15 12:39:44"
-                ]
-            },
+                }
+            ],
             "at.fms-datenfunk.MobileBookingAmager":
-            {
-                [
+            [
+                {
                     "telemetryID": 806,
                     "bundle": "at.fms-datenfunk.MobileBookingAmager",
                     "store": "iTunes",
@@ -147,8 +146,8 @@ Example output:
                     "developer": "fms Datenfunk GmbH",
                     "status": "OK",
                     "added_on": "2015-01-15 12:30:12"
-                ]
-            }
+                }
+            ]
         }
     }
 
