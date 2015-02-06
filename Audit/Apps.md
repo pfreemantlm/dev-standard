@@ -19,7 +19,7 @@ Returns details for Apps matching their "bundle" IDs against the provided search
 * **iTunes** = Apple's App Store
 * **Google Play** = For Android Apps
 
-Each item in the returned list contains details for an individual bundleID; with an item per downloadable app - the bundle ID might exist in multiple stores. The included details for each app are:
+The returned list (**"apps"**) is sorted by bundleID. Each object in the list contains a (**"stores"**) key, within which is the details for the app, keyed by each store it appears in. This exists because the bundle might be present in multiple stores. The included details for each app are:
 
 * **telemetryID** = our own unique identifier for an app
 * **bundleID** = the ID used for this app in the relevant store
@@ -33,14 +33,14 @@ Each item in the returned list contains details for an individual bundleID; with
 Example Input (all stores):
 
     {
-      "search": "ebo"
+        "search": "ebo"
     }
 
 Example Input (look only in Apple's store):
 
     {
-      "search": "ebo",
-      "store": "iTunes"
+        "search": "ebo",
+        "store": "iTunes"
     }
     
 Example Output (all stores):
@@ -48,62 +48,71 @@ Example Output (all stores):
     {
         "success":true,
         "apps":
-        {
-            "info.smartpocket.ebook590":
-            [
+        [
+            {
+                "bundleID": "info.smartpocket.ebook590",
+                "stores":
                 {
-                    "telemetryID": 6,
-                    "bundleID": "info.smartpocket.ebook590",
-                    "store": "iTunes",
-                    "os": "iOS",
-                    "name": "Christmas Sunshine",
-                    "developer": "DSG",
-                    "status": "OK",
-                    "added_on": "2015-01-15 12:30:12"
-                },
-                {
-                    "telemetryID": 6215,
-                    "bundleID": "info.smartpocket.ebook590",
-                    "store": "Google Play",
-                    "os": "Android",
-                    "name": "Christmas Sunshine",
-                    "developer": "DSG",
-                    "status": "OK",
-                    "added_on": "2015-01-15 12:39:44"
+                    "iTunes":
+                    {
+                        "telemetryID": 6,
+                        "bundleID": "info.smartpocket.ebook590",
+                        "store": "iTunes",
+                        "os": "iOS",
+                        "name": "Christmas Sunshine",
+                        "developer": "DSG",
+                        "status": "OK",
+                        "added_on": "2015-01-15 12:30:12"
+                    },
+                    "Google Play":    
+                    {
+                        "telemetryID": 6215,
+                        "bundleID": "info.smartpocket.ebook590",
+                        "store": "Google Play",
+                        "os": "Android",
+                        "name": "Christmas Sunshine ANDROID",
+                        "developer": "DSG",
+                        "status": "OK",
+                        "added_on": "2015-01-15 12:39:44"
+                    }
                 }
-            ],
-            "at.fms-datenfunk.MobileBookingAmager":
-            [
+            },
+            {
+                "bundleID": "at.fms-datenfunk.MobileBookingAmager",
+                "stores":
                 {
-                    "telemetryID": 806,
-                    "bundle": "at.fms-datenfunk.MobileBookingAmager",
-                    "store": "iTunes",
-                    "os": "iOS",
-                    "name": "Taxi Denmark",
-                    "developer": "fms Datenfunk GmbH",
-                    "status": "OK",
-                    "added_on": "2015-01-15 12:30:12"
+                    "iTunes":
+                    {
+                        "telemetryID": 806,
+                        "bundleID": "at.fms-datenfunk.MobileBookingAmager",
+                        "store": "iTunes",
+                        "os": "iOS",
+                        "name": "Taxi Denmark",
+                        "developer": "fms Datenfunk GmbH",
+                        "status": "OK",
+                        "added_on": "2015-01-15 12:30:12"
+                    }
                 }
-            ]
-        }
+            }
+        ]
     }
 
 
 ## getTopApps
 
-Receives information for those Apps which delivered the most within a given time period. This can be called with no arguments, and as such defaults to the top 50 Apps within the last 24 hours. A specific time range (**"start"** and **"end"**) can be provided in SQL format, as can an optional size of return list (**"limit"**). You can also specify the (**"store"**) to show top Apps only within that store.
+Receives information for those Apps which delivered the most within a given time period. This can be called with no arguments, and as such defaults to the top 50 Apps within the last 24 hours. A specific time range (**"start"** and **"end"**) can be provided in SQL format, as can an optional size of return list (**"limit"**).
 
-The output of this function matches that of [searchApps](#searchApps) with the addition of delivery information for each App instance, including:
+The output of this function matches that of [searchApps](#searchApps) - with the addition of delivery information for each App *across all stores* (as we cannot break down the rare cases in multiple stores), including:
 
-* TODO: document and add delivery vars to example!
+* **ad_starts** - Number of ad starts within the app within the time frame
+* **ad_requests** - Number of requests for an ad from the app within the time frame
 
 Example input showing overrides:
 
     {
-      "start": "2015-01-01 00:00:00",
-      "end": "2015-02-01 00:00:00",
-      "limit": 100,
-      "store": "iOS"
+        "start": "2015-01-01 00:00:00",
+        "end": "2015-02-01 00:00:00",
+        "limit": 100
     }
 
 Example output:
@@ -111,44 +120,57 @@ Example output:
     {
         "success":true,
         "apps":
-        {
-            "info.smartpocket.ebook590":
-            [
+        [
+            {
+                "bundleID": "info.smartpocket.ebook590",
+                "ad_starts": 3315351,
+                "ad_requests": 3323153,
+                "stores":
                 {
-                    "telemetryID": 6,
-                    "bundleID": "info.smartpocket.ebook590",
-                    "store": "iTunes",
-                    "os": "iOS",
-                    "name": "Christmas Sunshine",
-                    "developer": "DSG",
-                    "status": "OK",
-                    "added_on": "2015-01-15 12:30:12"
-                },
-                {
-                    "telemetryID": 6215,
-                    "bundleID": "info.smartpocket.ebook590",
-                    "store": "Google Play",
-                    "os": "Android",
-                    "name": "Christmas Sunshine",
-                    "developer": "DSG",
-                    "status": "OK",
-                    "added_on": "2015-01-15 12:39:44"
+                    "iTunes":
+                    {
+                        "telemetryID": 6,
+                        "bundleID": "info.smartpocket.ebook590",
+                        "store": "iTunes",
+                        "os": "iOS",
+                        "name": "Christmas Sunshine",
+                        "developer": "DSG",
+                        "status": "OK",
+                        "added_on": "2015-01-15 12:30:12"
+                    },
+                    "Google Play":    
+                    {
+                        "telemetryID": 6215,
+                        "bundleID": "info.smartpocket.ebook590",
+                        "store": "Google Play",
+                        "os": "Android",
+                        "name": "Christmas Sunshine ANDROID",
+                        "developer": "DSG",
+                        "status": "OK",
+                        "added_on": "2015-01-15 12:39:44"
+                    }
                 }
-            ],
-            "at.fms-datenfunk.MobileBookingAmager":
-            [
+            },
+            {
+                "bundleID": "at.fms-datenfunk.MobileBookingAmager",
+                "ad_starts": 125351,
+                "ad_requests": 231533,
+                "stores":
                 {
-                    "telemetryID": 806,
-                    "bundle": "at.fms-datenfunk.MobileBookingAmager",
-                    "store": "iTunes",
-                    "os": "iOS",
-                    "name": "Taxi Denmark",
-                    "developer": "fms Datenfunk GmbH",
-                    "status": "OK",
-                    "added_on": "2015-01-15 12:30:12"
+                    "iTunes":
+                    {
+                        "telemetryID": 806,
+                        "bundleID": "at.fms-datenfunk.MobileBookingAmager",
+                        "store": "iTunes",
+                        "os": "iOS",
+                        "name": "Taxi Denmark",
+                        "developer": "fms Datenfunk GmbH",
+                        "status": "OK",
+                        "added_on": "2015-01-15 12:30:12"
+                    }
                 }
-            ]
-        }
+            }
+        ]
     }
 
 
