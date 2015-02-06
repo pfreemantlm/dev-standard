@@ -14,12 +14,12 @@ and you wish to perform the [searchApps](#searchApps) function, you perform an H
 
 ## searchApps
 
-Returns details for Apps matching their "bundle" IDs against the provided search. The input consists of a search string (**"search"**), which needs to be 3 or more characters in length plus a Store Identifier (**"store"**) to specify which App Store we are looking in. The possible stores are:
+Returns details for Apps matching their "bundle" IDs against the provided search. The input consists of a search string (**"search"**), which needs to be 3 or more characters in length. There is also an optional Store Identifier (**"store"**) to specify which App Store we are looking in. The possible stores are:
 
 * **iTunes** = Apple's App Store
 * **Google Play** = For Android Apps
 
-Each item in the returned list contains details for an individual app, as follows:
+Each item in the returned list contains details for an individual bundleID; with an item per downloadable app - the bundle ID might exist in multiple stores. The included details for each app are:
 
 * **telemetryID** = our own unique identifier for an app
 * **bundleID** = the ID used for this app in the relevant store
@@ -30,40 +30,62 @@ Each item in the returned list contains details for an individual app, as follow
 * **status** = Tells us if we have data for the app, or if it's new. Possible values are: 'NODATA', 'NEW', and 'OK'
 * **added_on** = The date at which we entered the application into our App Database
 
-Example Input:
+Example Input (all stores):
+
+    {
+      "search": "ebo"
+    }
+
+Example Input (look only in Apple's store):
 
     {
       "search": "ebo",
       "store": "iTunes"
     }
     
-Example Output:
+Example Output (all stores):
 
     {
         "success":true,
         "apps":
-        [
+        {
+            "info.smartpocket.ebook590":
             {
-                "telemetryID": 6,
-                "bundleID": "info.smartpocket.ebook590",
-                "store": "iTunes",
-                "os": "iOS",
-                "name": "Christmas Sunshine",
-                "developer": "DSG",
-                "status": "OK",
-                "added_on": "2015-01-15 12:30:12"
+                [
+                    "telemetryID": 6,
+                    "bundleID": "info.smartpocket.ebook590",
+                    "store": "iTunes",
+                    "os": "iOS",
+                    "name": "Christmas Sunshine",
+                    "developer": "DSG",
+                    "status": "OK",
+                    "added_on": "2015-01-15 12:30:12"
+                ],
+                [
+                    "telemetryID": 6215,
+                    "bundleID": "info.smartpocket.ebook590",
+                    "store": "Google Play",
+                    "os": "Android",
+                    "name": "Christmas Sunshine",
+                    "developer": "DSG",
+                    "status": "OK",
+                    "added_on": "2015-01-15 12:39:44"
+                ]
             },
+            "at.fms-datenfunk.MobileBookingAmager":
             {
-                "telemetryID": 806,
-                "bundle": "at.fms-datenfunk.MobileBookingAmager",
-                "store": "iTunes",
-                "os": "iOS",
-                "name": "Taxi Denmark",
-                "developer": "fms Datenfunk GmbH",
-                "status": "OK",
-                "added_on": "2015-01-15 12:30:12"
+                [
+                    "telemetryID": 806,
+                    "bundle": "at.fms-datenfunk.MobileBookingAmager",
+                    "store": "iTunes",
+                    "os": "iOS",
+                    "name": "Taxi Denmark",
+                    "developer": "fms Datenfunk GmbH",
+                    "status": "OK",
+                    "added_on": "2015-01-15 12:30:12"
+                ]
             }
-        ]
+        }
     }
 
 
@@ -123,7 +145,7 @@ Example output:
     
 ## getEvents
 
-Returns data for observations made against the provided Telemetry unique App ID (**"telemetryID"**). The input requires a full and valid App ID, and the return value contains a list (**"observations"**) containing data for each observation (with a maximum of the last 50 observerations).
+Returns data for observations made against the provided App. The input requires a full and valid bundle ID (**"bundleID"**), App Store (**"store"**), and the return value contains a list (**"observations"**) containing data for each observation (with a maximum of the last 50 observerations).
 
 Example:
 
