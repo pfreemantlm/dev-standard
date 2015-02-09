@@ -14,7 +14,7 @@ and you wish to perform the [searchApps](#searchApps) function, you perform an H
 
 ## searchApps
 
-Returns details for Apps matching their "bundle" IDs against the provided search. The input consists of a search string (**"search"**), which needs to be 3 or more characters in length. There is also an optional Store Identifier (**"store"**) to specify which App Store we are looking in. The possible stores are:
+Returns details for Apps matching their "bundle" IDs against the provided search. The input consists of a search string (**"search"**), which needs to be 3 or more characters in length. You can specify a specific (**"limit"**) for the number of apps returned, otherwise it defaults to the first 50 matches. There is also an optional Store Identifier (**"store"**) to specify which App Store we are looking in. The possible stores are:
 
 * **iTunes** = Apple's App Store
 * **Google Play** = For Android Apps
@@ -36,11 +36,12 @@ Example Input (all stores):
         "search": "ebo"
     }
 
-Example Input (look only in Apple's store):
+Example Input (look only in Apple's store, limit to first 100 apps found):
 
     {
         "search": "ebo",
-        "store": "iTunes"
+        "store": "iTunes",
+        "limit": 100
     }
     
 Example Output (all stores):
@@ -100,12 +101,14 @@ Example Output (all stores):
 
 ## getTopApps
 
-Receives information for those Apps which delivered the most within a given time period. This can be called with no arguments, and as such defaults to the top 50 Apps within the last 24 hours. A specific time range (**"start"** and **"end"**) can be provided in SQL format, as can an optional size of return list (**"limit"**).
+Receives information for those Apps which delivered the most within a given time period. This can be called with no arguments, and as such defaults to the top 50 Apps within the last 24 hours. A specific time range (**"start"** and **"end"**) can be provided in SQL format, as can an optional size of return list (**"limit"**). 
 
 The output of this function matches that of [searchApps](#searchApps) - with the addition of delivery information for each App *across all stores* (as we cannot break down the rare cases in multiple stores), including:
 
 * **ad_starts** - Number of ad starts within the app within the time frame
 * **ad_requests** - Number of requests for an ad from the app within the time frame
+
+The returned bundles are sorted (in descending order, so the "top" app is first) by **Ad Requests**. This is so we are shown the most requested apps; there may be a delta between ad request and start which we want to observe.
 
 Example input showing overrides:
 
@@ -230,7 +233,7 @@ Example output:
     
 ## getEvents
 
-Returns data for observations made against the provided App. The input requires a full and valid bundle ID (**"bundleID"**), App Store (**"store"**), and the return value contains a list (**"observations"**) containing data for each observation (with a maximum of the last 50 observerations).
+Returns data for observations made against the provided App. The input requires a full and valid bundle ID (**"bundleID"**), App Store (**"store"**), and the return value contains a list (**"observations"**), sorted with most recent first, and containing data for each observation (with a maximum of the last 50 observerations).
 
 Example:
 
@@ -275,7 +278,7 @@ Example Output:
 
 ## getScores
 
-Summarises all observations made into a set of "scores", for each App provided in the request. Provide a list (**"apps"**) of bundleID + store pairs for each app you want scores for, and the return value will contain the scores for numerous areas relating to the observations, along with the number of observations which have been used for scoring.
+Summarises all observations made into a set of "scores", for each App provided in the request. Provide a list (**"apps"**) of bundleID + store pairs for each app you want scores for, and the return value will contain the scores for numerous areas relating to the observations, along with the number of observations which have been used for scoring. The return value is sorted by Bundle ID.
 
 Example Input:
 
