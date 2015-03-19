@@ -263,7 +263,7 @@ The spreadsheet *may* have these column headers:
  * Pixel
  * Hulu
  * Hulu and Integrated
-* **Tag Overrides** - specifies tag types that should be created for the placement, overriding policy restrictions that may be in place for the advertiser, such as limiting Desktop placements to the highest tracking level available. If multiple tag types are to be added, they are seperated by the | character (e.g. VAST2_LINEAR|IMPRESSION). Valid tag types are:
+* **Tag Overrides** - specifies additional tag types that should be created for the placement, overriding policy restrictions that may be in place for the advertiser, such as limiting Desktop placements to the highest tracking level available. If multiple tag types are to be added, they are seperated by the | character (e.g. VAST2_LINEAR|IMPRESSION). These additional tag types will have to have templates within the applied Vendor Product (described below) for the placement. Valid tag types are:
  * VAST2_AS3
  * VAST2_LINEAR
  * VPAID_HTML5
