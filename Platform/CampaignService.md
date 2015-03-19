@@ -263,6 +263,13 @@ The spreadsheet *may* have these column headers:
  * Pixel
  * Hulu
  * Hulu and Integrated
+* **Tag Overrides** - specifies tag types that should be created for the placement, overriding policy restrictions that may be in place for the advertiser, such as limiting Desktop placements to the highest tracking level available. If multiple tag types are to be added, they are seperated by the | character (e.g. VAST2_LINEAR|IMPRESSION). Valid tag types are:
+ * VAST2_AS3
+ * VAST2_LINEAR
+ * VPAID_HTML5
+ * MRAID
+ * IMPRESSION
+ * CAROUSEL
 
 [1] the valid "Type" options depend on whether or not the campaign is set up to use "Advertiser Policies". If enabled, the Advertiser will be set in the system to use one or more "Products". Use of these Products is to generally indicate a set of different Placement types under a single planned line item. The value of `hasAdvertiserPolicies` within the `getCampaigns` response indicates, for each campaign, whether or not it is using Advertiser Policies, and thus using Products.
 
