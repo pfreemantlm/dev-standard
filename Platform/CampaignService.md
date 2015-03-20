@@ -231,7 +231,7 @@ Example Output:
 Using the parameter `(campaignservice)uploadPlans` will import a spreadsheet of data into the given campaign, creating Placements and outlining their delivery and spend plans. There are also a number of optional attributes which can be provided to enhance Placement reporting and planning.
 
 The HTTP POST argument contains a (multipart/form-data) file (CSV, XLS or XLSX) file called "file"
-and an already-existing "campaignID" of the appropriate format. The "nolivesync" value can be set to 1 indicate that after a successful upload, the data should not be automatically sent to the live campaign data; if "nolivesync" is not set, a successful upload with automatically be sent live.
+and an already-existing "campaignID" of the appropriate format. The "nolivesync" value should be set to indicate whether after a successful upload, the data will be automatically sent to the live campaign data; if "nolivesync" is not set or set to 0, a successful upload with automatically be sent live, if it is set to 1 changes will not be sent live.
 
 The input spreadsheet should be separated into a line per Placement "flight". That is to say, a Placement’s information should be repeated for every set of delivery dates in the plan. See the [sample plan file](./samples/placement_and_plan.xlsx) file for an example.
 
@@ -477,7 +477,7 @@ Note that the data also describes the Placement items in terms of ID, Name, and 
 Using the parameter `(campaignservice)uploadAssignments` will imports a spreadsheet of data describing the ads (Editions, aka Creatives) to run on a Placement, along with Companion Ads. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
 
 The HTTP POST argument contains a (multipart/form-data) file (CSV, XLS or XLSX) file called "file"
-and an already-existing "campaignID" of the appropriate format. The "nolivesync" value can be set to 1 indicate that after a successful upload, the data should not be automatically sent to the live campaign data; if "nolivesync" is not set, a successful upload with automatically be sent live.
+and an already-existing "campaignID" of the appropriate format. The "nolivesync" value should be set to indicate whether after a successful upload, the data will be automatically sent to the live campaign data; if "nolivesync" is not set or set to 0, a successful upload with automatically be sent live, if it is set to 1 changes will not be sent live.
 
 The input spreadsheet should be separated into a line per Placement-Edition, with the weight specified. For assigning companions. further lines are then created with the same Placement-Edition information, and a weighting and series ID for each Placement-Edition-Companion line. The "Series ID" is used to group multiple companions together; i.e. these will be served together alongside the same Placement-Edition. Please see [a sample assignment file](./samples/creative_assignment.xlsx).
 
@@ -605,7 +605,7 @@ The output shows assignments, minus weighting information, alongside tracking da
 Using the parameter `(campaignservice)uploadTracking` will import a spreadsheet of data describing the assignments of Tracking pixels (used to send event notifications to 3rd parties) to Placements, Editions, and Companions. The Placement IDs can be retrieved using getAssignments, and the Creative IDs should correspond to those pulled using the getCreatives operation.
 
 The HTTP POST argument contains a (multipart/form-data) file (CSV, XLS or XLSX) file called "file"
-and an already-existing "campaignID" of the appropriate format. The "nolivesync" value can be set to 1 indicate that after a successful upload, the data should not be automatically sent to the live campaign data; if "nolivesync" is not set, a successful upload with automatically be sent live. 
+and an already-existing "campaignID" of the appropriate format. The "nolivesync" value should be set to indicate whether after a successful upload, the data will be automatically sent to the live campaign data; if "nolivesync" is not set or set to 0, a successful upload with automatically be sent live, if it is set to 1 changes will not be sent live. 
 
 Each line in the spreadsheet is used per Tracking Pixel URL we want to assign. Details of the combination to assign to; that is Placement-Edition, or Placement-Edition-Companion; are given alongside the Tracking Event (details below) and Tracking Pixel URL. For multiple URLs, repeat the Event and Assignment for each URL. Please see a [sample tracking sheet](./samples/tracking.xlsx).
 
