@@ -103,6 +103,10 @@ of the content-type `multipart/form-data` with the following fields:
 * `main_file` - the [raw file](#formats)
 * `thumbnail` - if the `main_file` is a video, include a JPEG `512x288` pixels.
 
+The following fields are optional:
+
+* `bypass_validation` - set to 1 to not validate the uploaded file meets the published Telemetry creative specification. This should only be used if trafficking of a not-to-spec video has been agreed with all parties. If this field is not set, or set to 0, then normal creative validation will be peformed by the smelter.
+
 When the file is done uploading, you will get a JSON response:
 
     { "error_code": 0, "status": "PROCESSING" }
@@ -115,36 +119,9 @@ You can receive the following status:
 * `BAD_HASH`: The hash in the ticket doesn't match the hash of the uploaded file.
 * `ERROR`: Something is wrong. Record the response JSON.
 
+If the response status is "ERROR", then an "error_msg" field will also be in the response JSON, providing a description of the error encountered.
+
 ##Formats
 
-###Video
-* **File Type:** MOV or AVI
-* **Aspect Ratio:** 16:9
-* **Min Dimenions:** 1280x720
-* **Max file size:** 2GB
-* **Min frame rate:** 23.97fps
-* **Min duration:** 2seconds
-* **Max duration:** 90seconds
-* **Field Order:** Progressive (de-interlaced)
-* **Pixel aspect ratio:** Square
-* **Min Audio Sample Rate:** 44100hz
-* **Video Codec:** H.264 (recommended), Quicktime Animation, or uncompressed
-* **Audio Codec:** AAC or Uncompressed
-* **Audio Channel:** Stereo
-* **Audio Level*:** Must be -27db (+/-2db)
-Please remove any leaders or extra black frames
-
-###AS3 SWF
-Suitable for Display and Companion banners.
-
-* Uploaded SWF must not contain any clickTag code
-* Preload/First SWF must contain the following code in the first-frame/constructor:
-
-        import flash.utils.getDefinitionByName;
-        try { getDefinitionByName(“Telemetry”).init(stage);}catch(e:Error){}
-
-###JPEG
-Suitable for video thumbanils, Display and Companion banners.
-
-* No special requirements
-
+Refer to current published specifications:
+http://techref.telemetryverification.net/creative/Materials%20Required%20for%20Creative%20Upload.pdf
