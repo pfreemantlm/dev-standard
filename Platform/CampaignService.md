@@ -503,6 +503,8 @@ Additional optional values:
 
 * **Policy** - Rules to apply during tag serving for the placement edition. The value in this column reads like a set of GET-line arguments, eg "MMCOUNTRY=225&DMA=\*gHAAACQygIBCIQADACA\*YAAAABA\*oCAAAw=". Some examples of Policy rules include MMCOUNTRY, MMDMA, and DMA - more details of the Policies can be found in [this document](./PolicyRules.md).
 * **ISCI Code** - The ISCI code of the Video creative being assigned to the placement. This property should only be set on rows that represent the primary video weighting, not in companion assignment rows.
+* **Share URL** - The URL used for the Social Media sharing of the placement / edition on the row. This should only be populated on non-companion assignment rows.
+* **Hahtag** - The hashtag/hashtags (space seperated) used for the Social Media sharing of the placement / edition on the row. This should only be populated on non-companion assignment rows.
 
 Note that you can include name columns (e.g. Placement Name, Creative Name) for reference, though these are not used during the upload process.
 
