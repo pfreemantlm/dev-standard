@@ -45,7 +45,7 @@ You can download the current list from [Google](https://developers.google.com/ad
 
 For example:
 
-    MMCOUNTRY=505
+    MMDMA=505
   
 Will require delivery to Detroit, MI.
 
