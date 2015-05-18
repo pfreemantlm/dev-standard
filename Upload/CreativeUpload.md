@@ -103,7 +103,7 @@ of the content-type `multipart/form-data` with the following fields:
 * `main_file` - the [raw file](#formats)
 * `thumbnail` - if the `main_file` is a video, include a JPEG `512x288` pixels.
 * `video_file` - if the `main_file` is an SWF (interactive), then this must be supplied. It is treated as a [raw file](#formats)
-* creative_params - any query string parameters that need to be added to the end of the creative path as a string. (e.g. key1=value1&key2=value2)
+* creative_params - any query string parameters that need to be added to the end of the creative path as a string. Must include leading '?' (e.g. '?key1=value1&key2=value2')
 
 The following fields are optional:
 
