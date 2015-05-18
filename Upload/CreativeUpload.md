@@ -20,7 +20,7 @@ Tickets are granted via the SOAP-based interface, but a full SOAP implementation
 * [`ADVERTISER_GUID`](../Platform/CampaignService.md#getadvertisers)
 * [`BRAND_GUID`](../Platform/CampaignService.md#getbrands)
 * [`REGION_GUID`](../Platform/CampaignService.md#getregions)
-* `FILE_SHA1_HASH` - which is the SHA1-hash of the raw [file](#formats) being uploaded.
+* `FILE_SHA1_HASH` - which is the SHA1-hash of the raw [file](#formats) being uploaded For interactives, this should be the sha1 of the main file XORed with the sha1 of the video.
 
 Send an HTTP request that looks like the following to *endpointurl*`/soap/apiv03/`, e.g. `https://test5823901.telemetry.com/soap/apiv03/`: 
 
@@ -103,6 +103,7 @@ of the content-type `multipart/form-data` with the following fields:
 * `main_file` - the [raw file](#formats)
 * `thumbnail` - if the `main_file` is a video, include a JPEG `512x288` pixels.
 * `video_file` - if the `main_file` is an SWF (interactive), then this must be supplied. It is treated as a [raw file](#formats)
+* creative_pramas - any query string parameters that need to be added to the end of the creative path as a string. (e.g. key1=value1&key2=value2)
 
 The following fields are optional:
 
