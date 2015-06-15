@@ -66,7 +66,7 @@ rejects categories 2, 9, 20, and 107.
 
 ## The PET policy
 
-The PET policy is in the following from
+The PET policy is used to filter out a placement edition combination if a certain edition has been sheen within a certain tim period. it is in the following from
 
 PET=300_500001_5_1_4
 
@@ -76,15 +76,15 @@ The policy will filter out a creative if it is present in both the policy string
 
 ## The PES policy
 
-The PES policy has the form
+This policy is used to filter out a placement-edition combination unless a certain edition has already been seen by the user. The PES policy has the form.
 
 PED=500001_5_1_4
 
-This is exactly the same as the PET policy, except now TR has been removed. The PED policy will filter out an edition unless it is present in the both the PED policy and the PET cookie. The timing does not matter. Like the PET policy, the PES policy cannot use negative deltas in its encoding. 
+This is exactly the same as the PET policy, except now TR has been removed. The PED policy will filter out an edition unless it is present in the both the PED policy and the PET cookie. The timing does not matter. Like the PET policy, the PES policy cannot use negative deltas in its encoding.
 
 ## Frequency Capping policy (FCAP)
 
-This policy is in the form 
+This policy is used to implment per-creative frequency capping. The policy is in the form 
 
 FCAP= 300.3_1500.2
 
