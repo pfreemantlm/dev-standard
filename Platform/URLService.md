@@ -70,7 +70,7 @@ a "created" or an "createdBy" section.
 
 ## update
 
-Using the parameter `(urlservice)blame` this will update a list.
+Using the parameter `(urlservice)update` this will update a list.
 
 The HTTP POST arguments (application/x-www-form-urlencoded) required are:
 
@@ -91,4 +91,36 @@ Example Output:
     {
         "success": true
     }
+
+## brandUnsafeUpdate
+
+Using the parameter `(urlservice)brandunsafeupdate` will update the brand safe categorisation applied to a particular advertiser. Specifying a list of categories deemed to be unsafe, and a list of domains to be excluded from consideration. For each category to add as unsafe, you specify the category name, as used in the zvelo database, and the date from which the category should be considered unsafe.
+
+The HTTP POST argument (application/x-www-form-urlencoded):
+
+* advertiserID - the Advertiser ID e.g. 900001
+* unsafecategory[0][categoryname] should be the name of the first category we with to include in the list
+* unsafecategory[0][startdate] should be the date, in yyyy-mm-dd format, from which point the first category should be applied
+* unsafecategory[0][enddate] should be the date, in yyyy-mm-dd format, from which the first category should stop being applied (optional)
+* unsafecategory[1][categoryname] should be the name of the second category we with to include in the list
+* unsafecategory[1][startdate] should be the date in, yyyy-mm-dd format, from which point the second category should be applied
+* unsafecategory[1][enddate] should be the date in, yyyy-mm-dd format, from which the second category should stop being applied (optional)
+* whitelistdomain[0][domain] should be the name of the first domain to exclude from unsafe category
+* whitelistdomain[0][startdate] should be the date in, yyyy-mm-dd format, from which first domain should be applied
+* whitelistdomain[0][enddate] should be the date in, yyyy-mm-dd format, from which first domain should be applied (optional)
+* whitelistdomain[1][domain] should be the name of the second domain to exclude from unsafe category
+* whitelistdomain[1][startdate] should be the date in, yyyy-mm-dd format, from which second domain should be applied
+* whitelistdomain[1][enddate] should be the date in, yyyy-mm-dd format, from which second domain should be applied (optional)
+
+
+There is a limit of 256 categories and 256 domains that can be applied to an advertiser
+
+Example Input:
+
+    advertiserID=900001&unsafecategory[0][categoryname]=Gambling&unsafecategory[0][startdate]=2015-01-01&unsafecategory[1][categoryname]=Criminal%20Skills%2FHacking&unsafecategory[1][startdate]=2015-01-01&unsafecategory[0][enddate]=2015-08-01&whitelistdomain[0][domain]=yahoo.com&whitelistdomain[0][startdate]=2015-02-28
+
+
+Successful Output:
+
+    { "result": 1, "message": "Success", "data": [] }
 
