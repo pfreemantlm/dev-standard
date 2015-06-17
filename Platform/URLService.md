@@ -92,35 +92,73 @@ Example Output:
         "success": true
     }
 
-## brandUnsafeUpdate
+## uploadBrandUnsafeConfig
 
-Using the parameter `(urlservice)brandunsafeupdate` will update the brand safe categorisation applied to a particular advertiser. Specifying a list of categories deemed to be unsafe, and a list of domains to be excluded from consideration. For each category to add as unsafe, you specify the category name, as used in the zvelo database, and the date from which the category should be considered unsafe.
+Using the parameter `(urlservice)uploadBrandUnsafeConfig` will import two spreadsheets of data describing the brand unsafe configuration to apply for a particular advertiser. The first spreadsheet is a list of categories deemed to be unsafe, the second is a list of domains to be excluded from consideration. For each category to add as unsafe, you specify the category name, as used in the zvelo database, and the date from which the category should be considered unsafe.
 
-The HTTP POST argument (application/x-www-form-urlencoded):
+The HTTP POST argument contains a (multipart/form-data) an already-existing "advertiserID" of the appropriate format, a CSV file called "categoryfile" and a CSV file called "domainfile".
 
-* advertiserID - the Advertiser ID e.g. 900001
-* unsafecategory[0][categoryname] should be the name of the first category we with to include in the list
-* unsafecategory[0][startdate] should be the date, in yyyy-mm-dd format, from which point the first category should be applied
-* unsafecategory[0][enddate] should be the date, in yyyy-mm-dd format, from which the first category should stop being applied (optional)
-* unsafecategory[1][categoryname] should be the name of the second category we with to include in the list
-* unsafecategory[1][startdate] should be the date in, yyyy-mm-dd format, from which point the second category should be applied
-* unsafecategory[1][enddate] should be the date in, yyyy-mm-dd format, from which the second category should stop being applied (optional)
-* whitelistdomain[0][domain] should be the name of the first domain to exclude from unsafe category
-* whitelistdomain[0][startdate] should be the date in, yyyy-mm-dd format, from which first domain should be applied
-* whitelistdomain[0][enddate] should be the date in, yyyy-mm-dd format, from which first domain should be applied (optional)
-* whitelistdomain[1][domain] should be the name of the second domain to exclude from unsafe category
-* whitelistdomain[1][startdate] should be the date in, yyyy-mm-dd format, from which second domain should be applied
-* whitelistdomain[1][enddate] should be the date in, yyyy-mm-dd format, from which second domain should be applied (optional)
+The categoryfile file must contain these column headers:
 
+* **Category** - The name of the category deemed to be unsafe.
+* **Unsafe From** - the date, in yyyy-mm-dd format, from which point the category should be applied.
+* **Unsafe Until** - the date, in yyyy-mm-dd format, from which point the category should cease being applied (optional).
 
-There is a limit of 256 categories and 256 domains that can be applied to an advertiser
+Example:
 
-Example Input:
+    "Category","Unsafe From","Unsafe Until"
+    "Gambling",2015-01-01,
+    "Criminal Skills/Hacking",2015-01-01,2015-08-01
 
-    advertiserID=900001&unsafecategory[0][categoryname]=Gambling&unsafecategory[0][startdate]=2015-01-01&unsafecategory[1][categoryname]=Criminal%20Skills%2FHacking&unsafecategory[1][startdate]=2015-01-01&unsafecategory[0][enddate]=2015-08-01&whitelistdomain[0][domain]=yahoo.com&whitelistdomain[0][startdate]=2015-02-28
+The domainfile file must contain these column headers:
 
+* **Domain** - The name of the domain to exclude from unsafe metrics
+* **Exclude From** - the date, in yyyy-mm-dd format, from which point the domain should be excluded
+* **Exclude Until** - the date, in yyyy-mm-dd format, from which point the domain should cease being excluded (optional)
+
+Example:
+
+    "Domain","Exclude From","Exclude Until"
+    "poker.facebook.com",2015-02-28,
+
+There is a limit of 256 categories and 65535 domains that can be applied to an advertiser
 
 Successful Output:
 
     { "result": 1, "message": "Success", "data": [] }
 
+## getBrandUnsafeConfig
+
+Using the parameter `(urlservice)getBrandUnsafeConfig` will return a set of JSON data describing the currently active brand unsafe configuration for the specied advertiser.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" is a advertiser ID that has already been created.
+
+Sample input:
+
+	advertiserID=900001
+
+Sample Output:
+
+	{
+  		"success": true,
+  		"advertiserID": 900001,
+  		"unsafeCategories":
+  		[
+  			{
+  				"categoryName": "Gabling",
+  				"unsafeFrom": "2015-01-01"
+  			},
+  			{
+  				"categoryName": "Criminal Skills/Hacking",
+  				"unsafeFrom": "2015-01-01",
+  				"unsafeUntil": "2015-08-01"
+  			}
+  		],
+  		"excludeDomains":
+  		[
+  			{
+  				"domainName": "poker.facebook.com",
+  				"excludeFrom": "2015-02-28"
+  			}
+  		]
+ 	}
