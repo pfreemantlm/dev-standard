@@ -145,7 +145,7 @@ Sample Output:
   		"unsafeCategories":
   		[
   			{
-  				"categoryName": "Gabling",
+  				"categoryName": "Gambling",
   				"unsafeFrom": "2015-01-01"
   			},
   			{
