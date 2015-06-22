@@ -64,4 +64,58 @@ For example:
 
 rejects categories 2, 9, 20, and 107.
 
+## The PET policy
+
+The PET policy is used to filter out a placement edition combination if a certain edition has been sheen within a certain tim period. it is in the following from
+
+PET=300_500001_5_1_4
+
+The first number is a time range in seconds, the second number is a placement id, and the subsequent numbers are deltas from the previous placement. So, in this instance, the placements in this policy are 500001, 500006 (500001 + 5), 500007 (500001 +5 + 1) and 500011 (500001 +5 + 1 + 4). Note that the delta encoded edition ids need to be in order (i.e., no negative deltas).
+
+The policy will filter out a creative if it is present in both the policy string and the PET cookie and the PET cookie indicates that it was last seen within TR seconds. The PET cookie is set at adstart will be discussed a bit later. 
+
+## The PES policy
+
+This policy is used to filter out a placement-edition combination unless a certain edition has already been seen by the user. The PES policy has the form.
+
+PED=500001_5_1_4
+
+This is exactly the same as the PET policy, except now TR has been removed. The PED policy will filter out an edition unless it is present in the both the PED policy and the PET cookie. The timing does not matter. Like the PET policy, the PES policy cannot use negative deltas in its encoding.
+
+## Frequency Capping policy (FCAP)
+
+This policy is used to implment per-creative frequency capping. The policy is in the form 
+
+FCAP= 300.3_1500.2
+
+This means that this placement-edition combination will be blocked it is seem more than 3 times in 300s, or 5 (3+2) times with 1800 seconds (1500s+300s). Much like with the PES and PET policies, this is done by setting a cookie at adstart time. 
+
+## Appendix A: The PET cookie
+
+The PET cookie keep a list of editions and the last time they were seen. The Cookie’s key is PET_{advertiserid} e.g. for advertiser 600008 the key would be PET_600008.
+
+This is stored in a delta, encoded form, where the first values are absolute and each following value is relative to the one that preceded it. For example, if edition 500001 was seen at 1432720100, 500003 at 1432720000 and 500004 at 1432720300 the resulting cookie would be 500001_1432720100,2_-100,1_400. When the cookie is set it is sorted in order of edition id. This is to help optimize the parsing of the cookie. 
+
+The PET cookie is set at adstart for any placement-edition combination that has a PET policy in its policy string. A blank policy (e.g ‘&PET=’ as a substring of the policy string) will still cause the cookie to be set
+
+The PET cookie has an expirey time of 24hours, so after this all the behaviour from teh PET and PES policies will reset. 
+
+
+##Appendix B: PET/PES examples
+###Ad break on a single placement
+From time to time an advertiser will want to show a set of creatives in a particular order on a single placement, normally during an ad break. This can be achived with a set of PES and PET policies. Consider the effect fo havving the following creatives an policies on a single palcement.
+
+    creative: 530618, policy:PET=600_530618_386_153
+    creative: 531004, policy:PET=600_531004_153&PES=530618
+    creative: 531157, policy:PET=600_531157&PES=530618&PES=531004
+
+In this case 530618 will not be shown if any of the other creatives, or itself, have been seen. In order for  531004 to be selected the first creative must be present in the pet cookie, but the last creative and itself must not. And for the last creative 531157 both of the previous creatives must have been seen, but it should not have been. 
+
+Take particular note the of fact that there are two PES policies for the last creative. This is because a PES policy will block unless any of the creatives had been seen, so if we had simply put both of those edtions into a single pet policy you could get the third ad after the first one.
+
+
+
+
+
+
 
