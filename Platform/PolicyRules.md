@@ -105,9 +105,9 @@ The PET cookie has an expirey time of 24hours, so after this all the behaviour f
 ###Ad break on a single placement
 From time to time an advertiser will want to show a set of creatives in a particular order on a single placement, normally during an ad break. This can be achived with a set of PES and PET policies. Consider the effect fo havving the following creatives an policies on a single palcement.
 
-creative: 530618, policy:PET=600_530618_386_153
-creative: 531004, policy:PET=600_531004_153&PES=530618
-creative: 531157, policy:PET=600_531157&PES=530618&PES=531004
+    creative: 530618, policy:PET=600_530618_386_153
+    creative: 531004, policy:PET=600_531004_153&PES=530618
+    creative: 531157, policy:PET=600_531157&PES=530618&PES=531004
 
 In this case 530618 will not be shown if any of the other creatives, or itself, have been seen. In order for  531004 to be selected the first creative must be present in the pet cookie, but the last creative and itself must not. And for the last creative 531157 both of the previous creatives must have been seen, but it should not have been. 
 
