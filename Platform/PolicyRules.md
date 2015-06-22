@@ -98,5 +98,24 @@ This is stored in a delta, encoded form, where the first values are absolute and
 
 The PET cookie is set at adstart for any placement-edition combination that has a PET policy in its policy string. A blank policy (e.g ‘&PET=’ as a substring of the policy string) will still cause the cookie to be set
 
+The PET cookie has an expirey time of 24hours, so after this all the behaviour from teh PET and PES policies will reset. 
+
+
+##Appendix B: PET/PES examples
+###Ad break on a single placement
+From time to time an advertiser will want to show a set of creatives in a particula rorder on a single placement. Thsi can be achived with a set of PES and PET policies. Consider the effect fo havving the following creatives an policies on a single palcement.
+
+creative: 530618, policy:PET=600_530618_386_153
+creative: 531004, policy:PET=600_531004_153&PES=530618
+creative: 531157, policy:PET=600_531157&PES=530618&PES=531004
+
+In this case 530618 will not be shown if any of the other creatives, or itself, have been seen. In order for  531004 to be selected the first creative must be present in the pet cookie, but the last creative and itself must not. And for the last creative 531157 both of the previous creatives must have been seen, but it should not have been. 
+
+Take particular note the of fact that there are two PES policies for the last creative. This is because a PES policy will block unless any of the creatives had been seen, so if we had simply put both of those edtions into a single pet policy you could get the third ad after the first one.
+
+
+
+
+
 
 
