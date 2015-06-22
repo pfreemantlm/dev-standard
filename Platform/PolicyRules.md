@@ -103,7 +103,7 @@ The PET cookie has an expirey time of 24hours, so after this all the behaviour f
 
 ##Appendix B: PET/PES examples
 ###Ad break on a single placement
-From time to time an advertiser will want to show a set of creatives in a particula rorder on a single placement. Thsi can be achived with a set of PES and PET policies. Consider the effect fo havving the following creatives an policies on a single palcement.
+From time to time an advertiser will want to show a set of creatives in a particular order on a single placement, normally during an ad break. This can be achived with a set of PES and PET policies. Consider the effect fo havving the following creatives an policies on a single palcement.
 
 creative: 530618, policy:PET=600_530618_386_153
 creative: 531004, policy:PET=600_531004_153&PES=530618
