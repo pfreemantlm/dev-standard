@@ -22,6 +22,5 @@ Once your program receives a successful (200) result, you can use:
 
     curl -L http://cdn.telemetryverification.net/tv2n/p/src/id/whatever.js
 
-to get the url.
 
 
