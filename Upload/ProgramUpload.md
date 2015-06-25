@@ -18,4 +18,10 @@ The HTTP response code will be one of the following:
 
 All other errors are permanent failures. Review the response text for guidance.
 
+Once your program receives a successful (200) result, you can use:
+
+    curl -L http://cdn.telemetryverification.net/tv2n/p/src/id/whatever.js
+
+to get the url.
+
 
