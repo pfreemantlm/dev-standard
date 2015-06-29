@@ -653,6 +653,51 @@ Successful Output:
 
     { "result": 1, "message": "Success", "data": [] }
 
+## createCreative
+
+Using the parameter `(campaignservice)createCreative` will create a new creative entity on a given brand, with a given name. Creatives are used to group Creative Editions.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "advertiserID" should be set to the advertiser ID, "brandID" should be set to the brand ID, "name" is the name to assign to the new creative.
+
+The advertiser ID provided must match the advertiser that is for the brand ID provided. If a creative already exists on the given brand, with the name provided, details for the existing creative will be returned; no new creative will be generated in this case.
+
+Sample Input:
+
+    advertiserID=800001&brandID=970001&name=New%20Creative
+    
+Successful Output:
+
+    {"success":1,"creative":{"ADVERTISER_ID":800001,"BRAND_ID":970001,"CREATIVE_NAME":"New Creative","CREATIVE_ID":710005},"result":1}
+
+## createCreativeEdition
+
+Using the parameter `(campaignservice)createCreativeEdition` will create a new creative edition entity on a given creative, with a given name and path.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "creativeID" should be set to an existing creative ID, "name" is the name to assign to the new creative edition, "path" is the path to assign to the creative edition. "interactive" is optional, and if set should be either 0 or 1, 0 indicating not interactive, 1 indicating interactive; if not provided, 0 is assumed.
+
+Sample Input:
+
+    creativeID=710005&name=New%20Creative%20Edition&path=/content/ads.swf
+    
+Successful Output:
+
+    {"success":1,"edition":{"CREATIVE_ID":710005,"EDITION_NAME":"New Creative Edition","EDITION_VERSION":0,"EDITION_INTERACTIVE":0,"EDITION_PATH":"\/content\/ads.swf","EDITION_ID":750009},"result":1}
+
+## setEditionConcept
+
+Using the parameter `(campaignservice)setEditionConcept` will set an edition to be on a creative with a given name, on the same brand that it is already assigned to.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "editionID" should be set to an existing edition ID, "conceptname" is the name of the creative that the edition should be grouped using.
+
+If a creative already exists on the brand with the given concept name, the edition is set to be grouped on that creative, otherwise, if the creative the edition is currently grouped in only has the one edition, this creative is renamed to the given concept name, otherwise a new create is created on the brand using the given name.
+
+Sample Input:
+
+    editionID=750009&conceptname=Other%20Concept
+    
+Successful Output:
+
+    {"success":1,"edition":{"EDITION_ID":750009,"EDITION_NAME":"New Creative Edition","EDITION_PATH":"\/content\/ads.swf","CREATIVE_ID":710005},"result":1}
 
 ## setEditionPath
 
