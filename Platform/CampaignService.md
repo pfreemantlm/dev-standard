@@ -353,7 +353,7 @@ The output contains, for each Creative ID, the corresponding name and type. The 
 
 ## getCreativesEditions
 
-Using the parameter `(campaignservice)getCreativesEditions` will returns a mapping of ID:Info for Creative Groups available to the given Brand.
+Using the parameter `(campaignservice)getCreativesEditions` will return a mapping of ID:Info for Creative Groups available to the given Brand.
 
 The HTTP POST argument (application/x-www-form-urlencoded) "brandID" is a brand ID that has already been created.
 
@@ -786,3 +786,72 @@ Successful test output:
 
     { "result": 1, "message": "Success", "xml": "<?xml version=\"1.0\"?>\n<CARMA type=\"manual\"><PLACEMENT><TYPE>In Player<\/TYPE><DATA><HAS_CATEGORY>0<\/HAS_CATEGORY><TAGTYPE><NAME>VAST2_AS3<\/NAME><TAG_TEMPLATE><VENDOR>vast2.0_wrapper_template.st<\/VENDOR><AD>vast2.0_inline_template.st<\/AD><\/TAG_TEMPLATE><\/TAGTYPE><PLACEMENT_ID>1110081<\/PLACEMENT_ID><PLACEMENT_NAME>My Test Item - Integrated<\/PLACEMENT_NAME><PACKAGE_ID>3300081<\/PACKAGE_ID><PACKAGE_NAME>My Test Item<\/PACKAGE_NAME><BOOKING_ID>642001<\/BOOKING_ID><BOOKING_NAME>Test Campaign [2014]<\/BOOKING_NAME><ADVERTISER_ID>800001<\/ADVERTISER_ID><ADVERTISER_NAME>My Advertiser<\/ADVERTISER_NAME><REGION>USA<\/REGION><COUNTRY>USA<\/COUNTRY><PUBNET_NAME>Test Pubnet 1<\/PUBNET_NAME><PLAN_END_DATE>1-1-1<\/PLAN_END_DATE><REDIRECTPIXEL>0<\/REDIRECTPIXEL><STATICPIXEL>0<\/STATICPIXEL><FORMAT><WIDTH>640<\/WIDTH><HEIGHT>360<\/HEIGHT><DIRECT_LOAD>0<\/DIRECT_LOAD><AD_REQUESTS>FIRST_CALL<\/AD_REQUESTS><\/FORMAT><FLASHVARS><FLASHVAR><PARAMETER>hold<\/PARAMETER><VALUE>0<\/VALUE><\/FLASHVAR><FLASHVAR><PARAMETER>TAGEXPORTER<\/PARAMETER><VALUE>1344438248<\/VALUE><\/FLASHVAR><FLASHVAR><PARAMETER>ENABLEINPLAYERCONTROLS<\/PARAMETER><VALUE>1<\/VALUE><\/FLASHVAR><FLASHVAR><PARAMETER>enableinplayercontrols<\/PARAMETER><VALUE>1<\/VALUE><\/FLASHVAR><FLASHVAR><PARAMETER>TAGEXPORTER<\/PARAMETER><VALUE>1400082783<\/VALUE><\/FLASHVAR><\/FLASHVARS><EDITION><EDITION_ID>750001<\/EDITION_ID><EDITION_NAME>My Brand (640x360)<\/EDITION_NAME><URL_AS2>\/content\/my_advertiser\/my_brand\/r0001\/my_brand_640x360.swf<\/URL_AS2><URL_AS3>\/content\/my_advertiser\/my_brand\/r0001\/my_brand_640x360_as3.swf<\/URL_AS3><WEIGHT>100<\/WEIGHT><\/EDITION><\/DATA><\/PLACEMENT><\/CARMA>\n" }
 
+
+## getAvailableTagTypes
+
+Using the parameter `(campaignservice)getAvailableTagTypes` will return a mapping of Placements to possible Tag Types which can be ordered for the given Campaign ID. You can also provide an optional Placement ID to return the possible Tag Types for that item only. These available Tag Types can then be used to order tags with the [createOneTag](#createOneTag) call. 
+
+For a placement to have any tag types available to order, it must have the functionality enabled on the server at the time of the [uploadPlans](#uploadPlans)  call.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" is required, and must be a valid ID (which can be found with a [getCampaigns](#getCampaigns) call).
+
+Sample input:
+
+    campaignID=642001
+    
+There is also an optional "placementID" argument; the placement must be part of the provided campaign:
+
+    campaignID=642001&placementID=3300081
+
+The output's "available" field contains for each Placement ID, a set of available "tag type orders". Each of these contains a description of the tag type; "vendorTagType" is the main descriptor, and "telemetryTagType" is how the tag type is referred to by Telemetry on the server side. The order also contains a breakdown of flashvars included, should this type be chosen, during a [createOneTag](#createOneTag) call.
+
+An additional "existing" field in the output contains, again for each Placement ID, a list of any available tag types which have already been ordered.
+
+Example:
+
+    {
+        "success":true,
+        "available": 
+        {
+            "3300081":
+            [
+                {
+                    "vendorTagType":"Desktop VPAID",
+                    "telemetryTagType":"VAST2_AS3",
+                    "features":
+                    {
+                        "hold":"0",
+                        "bitrate":"1500",
+                        "enableinplayercontrols":"0"
+                    }
+                },
+                {
+                    "vendorTagType":"Site Serve Pixels",
+                    "telemetryTagType":"IMPRESSION",
+                    "features":
+                    {
+                        "hold":"0"
+                    }
+                }
+            ],
+            "3300082":
+            [
+                {
+                    "vendorTagType":"Desktop VPAID",
+                    "telemetryTagType":"VAST2_AS3",
+                    "features":
+                    {
+                        "hold":"0"
+                    }
+                }
+            ]
+        }
+      
+        "existing":
+        {
+            "3300081":
+            {
+                "Desktop VPAID":"Desktop VPAID"
+            }
+        }
+    }
