@@ -863,9 +863,9 @@ Using the parameter `(campaignservice)createOneTag` will take the given sets of 
 
 The HTTP POST argument (application/x-www-form-urlencoded) "tagOrders" is the only required parameter. This is a list of order objects, each one containing 3 parameters:
 
-    *`campaignID` the campaign to create the tag under, can be taken from a (getCampaigns)[#getCampaigns] call.
-    *`placementID` the placement to create the tag under, which must already be part of the Campaign.
-    *`tagType` the type of tag to order; must be an available `vendorTagType` under this Placement, from the results of a  (getAvailableTagTypes)[#getAvailableTagTypes] call.
+* `campaignID` the campaign to create the tag under, can be taken from a (getCampaigns)[#getCampaigns] call.
+* `placementID` the placement to create the tag under, which must already be part of the Campaign.
+* `tagType` the type of tag to order; must be an available `vendorTagType` under this Placement, from the results of a  (getAvailableTagTypes)[#getAvailableTagTypes] call.
 
 Sample input:
 
