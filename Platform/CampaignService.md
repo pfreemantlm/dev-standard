@@ -803,6 +803,7 @@ There is also an optional "placementID" argument; the placement must be part of 
 
     campaignID=642001&placementID=3300081
 
+
 The output's "available" field contains for each Placement ID, a set of available "tag type orders". Each of these contains a description of the tag type; "vendorTagType" is the main descriptor, and "telemetryTagType" is how the tag type is referred to by Telemetry on the server side. The order also contains a breakdown of flashvars included, should this type be chosen, during a [createOneTag](#createOneTag) call.
 
 An additional "existing" field in the output contains, again for each Placement ID, a list of any available tag types which have already been ordered.
@@ -846,7 +847,6 @@ Example:
                 }
             ]
         }
-      
         "existing":
         {
             "3300081":
@@ -855,3 +855,37 @@ Example:
             }
         }
     }
+
+
+## createOneTag
+
+Using the parameter `(campaignservice)createOneTag` will take the given sets of "orders" and, for each one, create a tag of the given type, under the campaign and placement. Where a tag has already been ordered, it will only be exported, in the same manner as a "createTags" call.
+
+The HTTP POST argument (application/x-www-form-urlencoded) "tagOrders" is the only required parameter. This is a list of order objects, each one containing 3 parameters:
+
+    *`campaignID` the campaign to create the tag under, can be taken from a (getCampaigns)[#getCampaigns] call.
+    *`placementID` the placement to create the tag under, which must already be part of the Campaign.
+    *`tagType` the type of tag to order; must be an available `vendorTagType` under this Placement, from the results of a  (getAvailableTagTypes)[#getAvailableTagTypes] call.
+
+Sample input:
+
+    tagOrders[0][campaignID]=642001&tagOrders[0][placementID]=3300080&tagOrders[0][tagType]='Desktop VPAID'
+    
+    
+The returned object will contain a value of 1 for the `success` field when the orders go through, along with an `orders` field containing the objects which were successful. An `errors` field is present for when `success` is 0, showing the issues encountered during the ordering process.
+
+Example:
+
+    {
+        "success":true,
+        "errors": [],
+        "orders": 
+        [
+            {
+                "tagType":"Desktop VPAID",
+                "placementID": 3300080
+                "campaignID": 642001
+            }
+        ]
+    }
+    
