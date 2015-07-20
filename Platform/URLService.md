@@ -102,3 +102,25 @@ Sample Output:
   		"lastChangedTime": "2015-06-18 12:03:34",
   		"lastChangedUser": "goffer@dave"
 	}
+
+## uploadBrandSafeWhitelist
+
+Using the parameter `(urlservice)uploadBrandSafeWhitelist` will import one spreadsheet of data describing the list of referrer domains that should be whitelisted for brand unsafe consideration for all advertisers that have no advertiser specific whitelist. For each domain to add as whitelisted, you specify the doamin name, the date from which the domain should be considered safe, and optionally a date from which to stop whitelisting the domain.
+
+The HTTP POST argument contains a (multipart/form-data) a CSV file called "domainfile".
+
+The domainfile file must contain these column headers:
+
+* **Domain** - The name of the domain to exclude from unsafe metrics
+* **Exclude From** - the date, in yyyy-mm-dd format, from which point the domain should be excluded
+* **Exclude Until** - the date, in yyyy-mm-dd format, from which point the domain should cease being excluded (optional)
+
+Example:
+
+    "Domain","Exclude From","Exclude Until"
+    "poker.facebook.com",2015-02-28,
+
+Successful Output:
+
+    { "result": 1, "message": "Success", "data": [] }
+
