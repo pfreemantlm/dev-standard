@@ -44,10 +44,11 @@ Example Response:
     X-Saw-User: atest@telemetry
     Access-Control-Allow-Origin: *
     
-    X-Saw-Message: 20150721172837.7620_1.sample-server
+    Header: value
+    Header: value
+    Header: value
     
-    
-    Message received loud and clear
+    your message here
 
 
 ## Master side
