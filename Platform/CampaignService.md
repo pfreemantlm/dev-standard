@@ -851,7 +851,7 @@ Example:
         {
             "3300081":
             {
-                "Desktop VPAID":"Desktop VPAID"
+                "Desktop VPAID": 1
             }
         }
     }
