@@ -179,9 +179,9 @@ Tag is a technical term. It identifies a given placement (or sometimes a placeme
 
 It is not to be confused with the *placement itself*, as the tag might have a technological component.
 
-VAST and VAST+VPAID tags look like URLs or like XML fragments, e.g.
+VAST and VAST+VPAID tags look like URIs or like XML fragments, e.g.
 
-    http://spc--cedghgcfiglejfkfchpgkfbf--vast2js.telemetryverification.net
+    http://spc--cedghgcfiglejfkfchpgkfbf.telemetryverification.net
     
 or:
 
@@ -190,7 +190,7 @@ or:
       <Ad>
         <Wrapper>
 	      <AdSystem>Telemetry</AdSystem>
-          <VASTAdTagURI>http://spc--cedghgcfiglejfkfchpgkfbf--vast2js.telemetryverification.net</VASTAdTagURI>
+          <VASTAdTagURI>http://spc--cedghgcfiglejfkfchpgkfbf.telemetryverification.net</VASTAdTagURI>
           <Impression><![CDATA[about:blank]]></Impression>
         </Wrapper>
       </Ad>

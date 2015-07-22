@@ -16,9 +16,9 @@ For video, almost every ad platform uses [VAST](http://www.iab.net/guidelines/50
 An ad trafficker will be familiar with [VPAID](http://www.iab.net/guidelines/508676/digitalvideo/vsuite/vpaid) creatives (generally SWF but sometimes JavaScript)
 and with "linear video" creatives (generally: WEBM, MP4 and/or FLV).
 
-On most ad platforms, the trafficker works with VAST URLs. Telemetry VAST urls look like this:
+On most ad platforms, the trafficker works with VAST URIs. Telemetry VAST URIs look like this:
 
-    http://spc--ceffiflemepegfadkfdeihed--vast2as3.telemetryverification.net
+    http://spc--ceffiflemepegfadkfdeihed.telemetryverification.net
 
 Note the sequence after `spc--` and is an encoded [placement ID](./Campaigns.md#Placements). Some platforms require VAST Wrappers, which look like this:
 
@@ -27,7 +27,7 @@ Note the sequence after `spc--` and is an encoded [placement ID](./Campaigns.md#
       <Ad id="1">
         <Wrapper>
           <AdSystem>Telemetry</AdSystem>
-          <VASTAdTagURI>http://spc--ceffiflemepegfadkfdeihed--vast2as3.telemetryverification.net</VASTAdTagURI>
+          <VASTAdTagURI>http://spc--ceffiflemepegfadkfdeihed.telemetryverification.net</VASTAdTagURI>
           <Impression><![CDATA[about:blank]]></Impression>
         </Wrapper>
       </Ad>
@@ -52,7 +52,7 @@ Telemetry requires *for all Display formats*:
 
 ### Standard IFrame
 
-A standard IFrame format can be trafficked as a URL, or as a fragment of HTML:
+A standard IFrame format can be trafficked as a URI, or as a fragment of HTML:
 
     <iframe src="IFRAME_TARGET"></iframe>
 
@@ -65,7 +65,7 @@ A standard JavaScript tag is almost always trafficked as a fragment of HTML
 beginning with a script tag, and containing a noscript-fallback:
 
     <script src="SCRIPT_TO_PULL"></script>
-    <noscript><a href="CLICK_URL"><img src="IMAGE_FALLBACK"></a></noscript>
+    <noscript><a href="CLICK_URI"><img src="IMAGE_FALLBACK"></a></noscript>
 
 One particular variant of the JavaScript tag is the IAB Friendly IFrame which
 involves hosting an iframe on the same site as the publisher and using
