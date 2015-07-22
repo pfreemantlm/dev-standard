@@ -30,7 +30,6 @@ The response to this POST, if successfully handled, will be the body of the mess
     [MESSAGE ID HEADER]
     [-blank line-]
     [-blank line-]
-    [-blank line-]
     [MESSAGE BODY]
 
 Example Response: 
