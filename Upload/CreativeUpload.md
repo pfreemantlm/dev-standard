@@ -20,7 +20,7 @@ Tickets are granted via the SOAP-based interface, but a full SOAP implementation
 * [`ADVERTISER_GUID`](../Platform/CampaignService.md#getadvertisers)
 * [`BRAND_GUID`](../Platform/CampaignService.md#getbrands)
 * [`REGION_GUID`](../Platform/CampaignService.md#getregions)
-* `FILE_SHA1_HASH` Thsi can be one of two things
+* `FILE_SHA1_HASH` This can be one of two things
     * For verified uploads the SHA1-hash of the raw [file](#formats) being uploaded. For interactives, this should be the sha1 of the main file XORed with the sha1 of the video.
     * For unverified uploads this needs to be some unique ID that will be used to refer to the file later. 
 
@@ -89,20 +89,20 @@ You can receive the following status:
 
 ##Upload File
 
-This can be done in two ways: verified and unverified. With verified uploads the tgxId provided when you create the ticket must be sha1 of the file and you must provide a 'edition_id' value. For unverified, the tgxId in teh ticket can be any unique value and an edition id will be created.
+This can be done in two ways: with or without an edition id. If an edition id id provided the tgxId used when you create the ticket must be sha1 of the file. Otherwise the tgxId in the ticket must be a value that will be unique to the edition that gets created.
 
 You will need to know the:
 
 * [`TICKET_STRING`](#generatetickets)
-* [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions) (Needed for verified uploads only)
+* [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions) (optional)
 
 You must have a file matching [the upload specs](#formats). If you are uploading video, you will also need a thumbnail for some vendors.
 
-Connect to https://*SmelterEndpoint*`/process.php` or https://*SmelterEndpoint*`/process_unverified.php`  by looking up the SRV record `_smelter._tcp.telemetry.com` and send an HTTP POST
+Connect to https://*SmelterEndpoint*`/process.php` or https://*SmelterEndpoint*`/processandcreate.php`  by looking up the SRV record `_smelter._tcp.telemetry.com`. Send an HTTP POST
 of the content-type `multipart/form-data` with the following fields:
 
 * `token` - the [`TICKET_STRING`](#generatetickets) above
-* `edition_id` - the [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions) (Needed for verified uploads only)
+* `edition_id` - the [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions) (optional)
 * `main_file` - the [raw file](#formats)
 * `thumbnail` - if the `main_file` is a video, include a JPEG `512x288` pixels.
 * `video_file` - if the `main_file` is an SWF (interactive), then this must be supplied. It is treated as a [raw file](#formats)
