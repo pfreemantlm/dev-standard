@@ -20,7 +20,9 @@ Tickets are granted via the SOAP-based interface, but a full SOAP implementation
 * [`ADVERTISER_GUID`](../Platform/CampaignService.md#getadvertisers)
 * [`BRAND_GUID`](../Platform/CampaignService.md#getbrands)
 * [`REGION_GUID`](../Platform/CampaignService.md#getregions)
-* `FILE_SHA1_HASH` - which is the SHA1-hash of the raw [file](#formats) being uploaded. For interactives, this should be the sha1 of the main file XORed with the sha1 of the video.
+* `FILE_SHA1_HASH` This can be one of two things
+    * If the edition id is know the SHA1-hash of the raw [file](#formats) being uploaded. For interactives, this should be the sha1 of the main file XORed with the sha1 of the video.
+    * Otherwise this needs to be some unique ID that will be used to refer to the file later. This needs to be a value that will be unique to the edition that gets created
 
 Send an HTTP request that looks like the following to *endpointurl*`/soap/apiv03/`, e.g. `https://test5823901.telemetry.com/soap/apiv03/`: 
 
@@ -87,19 +89,20 @@ You can receive the following status:
 
 ##Upload File
 
+This can be done in two ways: with or without an edition id. If an edition id id provided the tgxId used when you create the ticket must be sha1 of the file. Otherwise the tgxId in the ticket must be a value that will be unique to the edition that gets created.
+
 You will need to know the:
 
 * [`TICKET_STRING`](#generatetickets)
-* [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions)
-* `FILE_SHA1_HASH` - which is the SHA1-hash of the raw [file](#formats) being uploaded.
+* [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions) (optional)
 
 You must have a file matching [the upload specs](#formats). If you are uploading video, you will also need a thumbnail for some vendors.
 
-Connect to https://*SmelterEndpoint*`/process.php` by looking up the SRV record `_smelter._tcp.telemetry.com` and send an HTTP POST
+Connect to https://*SmelterEndpoint*`/process.php` if an edition id is pbeing provided, otherwise https://*SmelterEndpoint*`/processandcreate.php`, by looking up the SRV record `_smelter._tcp.telemetry.com`. Send an HTTP POST
 of the content-type `multipart/form-data` with the following fields:
 
 * `token` - the [`TICKET_STRING`](#generatetickets) above
-* `edition_id` - the [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions)
+* `edition_id` - the [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions) (optional)
 * `main_file` - the [raw file](#formats)
 * `thumbnail` - if the `main_file` is a video, include a JPEG `512x288` pixels.
 * `video_file` - if the `main_file` is an SWF (interactive), then this must be supplied. It is treated as a [raw file](#formats)
@@ -112,6 +115,10 @@ The following fields are optional:
 When the file is done uploading, you will get a JSON response:
 
     { "error_code": 0, "status": "PROCESSING" }
+    
+For unverified uplods this will also contain the edition id when it is available like this. 
+
+    { "error_code": 0, "status": "PROCESSING", "edtiion" : "50004"}
 
 You can receive the following status:
 
