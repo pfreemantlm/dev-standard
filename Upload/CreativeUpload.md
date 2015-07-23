@@ -98,7 +98,7 @@ You will need to know the:
 
 You must have a file matching [the upload specs](#formats). If you are uploading video, you will also need a thumbnail for some vendors.
 
-Connect to https://*SmelterEndpoint*`/process.php` if an edition id is pbeing provided, otherwise https://*SmelterEndpoint*`/processandcreate.php`, by looking up the SRV record `_smelter._tcp.telemetry.com`. Send an HTTP POST
+Connect to https://*SmelterEndpoint*`/process.php` if an edition id is being provided, otherwise https://*SmelterEndpoint*`/processandcreate.php`, by looking up the SRV record `_smelter._tcp.telemetry.com`. Send an HTTP POST
 of the content-type `multipart/form-data` with the following fields:
 
 * `token` - the [`TICKET_STRING`](#generatetickets) above
