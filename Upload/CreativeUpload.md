@@ -88,22 +88,21 @@ You can receive the following status:
 * `ERROR`: Something is wrong. Record the response JSON.
 
 ##Upload File
-There are two ways of uploading files: Verifed and unverified. They are similar, but to save confusion they are documented separatly.
 
-###Upload File (verified)
+This can be done in two ways: verified and unverified. With verified uploads the tgxId provided when you create the ticket must be sha1 of the file and you must provide a 'edition_id' value. For unverified, the tgxId in teh ticket can be any unique value and an edition id will be created.
 
 You will need to know the:
 
 * [`TICKET_STRING`](#generatetickets)
-* [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions)
+* [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions) (Needed for verified uploads only)
 
 You must have a file matching [the upload specs](#formats). If you are uploading video, you will also need a thumbnail for some vendors.
 
-Connect to https://*SmelterEndpoint*`/process.php` by looking up the SRV record `_smelter._tcp.telemetry.com` and send an HTTP POST
+Connect to https://*SmelterEndpoint*`/process.php` or https://*SmelterEndpoint*`/process_unverified.php`  by looking up the SRV record `_smelter._tcp.telemetry.com` and send an HTTP POST
 of the content-type `multipart/form-data` with the following fields:
 
 * `token` - the [`TICKET_STRING`](#generatetickets) above
-* `edition_id` - the [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions)
+* `edition_id` - the [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions) (Needed for verified uploads only)
 * `main_file` - the [raw file](#formats)
 * `thumbnail` - if the `main_file` is a video, include a JPEG `512x288` pixels.
 * `video_file` - if the `main_file` is an SWF (interactive), then this must be supplied. It is treated as a [raw file](#formats)
@@ -116,6 +115,8 @@ The following fields are optional:
 When the file is done uploading, you will get a JSON response:
 
     { "error_code": 0, "status": "PROCESSING" }
+    
+For unverified uplods this will also contain the edition id when it is available. 
 
 You can receive the following status:
 
@@ -126,39 +127,6 @@ You can receive the following status:
 * `ERROR`: Something is wrong. Record the response JSON.
 
 If the response status is "ERROR", then an "error_msg" field will also be in the response JSON, providing a description of the error encountered.
-
-###Upload File (unverified)
-
-This is very similar toteh verified upload process, but in order to simplify the instructions has been separated out. You will need to know the:
-
-* [`TICKET_STRING`](#generatetickets)
-
-Connect to https://*SmelterEndpoint*`/process_unverified.php` by looking up the SRV record `_smelter._tcp.telemetry.com` and send an HTTP POST
-of the content-type `multipart/form-data` with the following fields:
-
-* `token` - the [`TICKET_STRING`](#generatetickets) above
-* `main_file` - the [raw file](#formats)
-* `thumbnail` - if the `main_file` is a video, include a JPEG `512x288` pixels.
-* `video_file` - if the `main_file` is an SWF (interactive), then this must be supplied. It is treated as a [raw file](#formats)
-* creative_params - any query string parameters that need to be added to the end of the creative path as a string. Must include leading '?' (e.g. '?key1=value1&key2=value2')
-
-The following fields are optional:
-
-* `bypass_validation` - set to 1 to not validate the uploaded file meets the published Telemetry creative specification. This should only be used if trafficking of a not-to-spec video has been agreed with all parties. If this field is not set, or set to 0, then normal creative validation will be peformed by the smelter.
-
-When the file is done uploading, you will get a JSON response:
-
-    { "error_code": 0, "status": "PROCESSING", "edition" : "500001", "creative" : "428338"}
-
-You can receive the following status:
-
-* `PROCESSING`: The file is being transcoded/converted
-* `STAGING`: The file exists on the staging area (and has been accepted)
-* `DONE`: The file is on Telemetry's content servers and is ready for serving.
-* `BAD_HASH`: The hash in the ticket doesn't match the hash of the uploaded file.
-* `ERROR`: Something is wrong. Record the response JSON.
-
-
 
 ##Formats
 
