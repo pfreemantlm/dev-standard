@@ -21,8 +21,8 @@ Tickets are granted via the SOAP-based interface, but a full SOAP implementation
 * [`BRAND_GUID`](../Platform/CampaignService.md#getbrands)
 * [`REGION_GUID`](../Platform/CampaignService.md#getregions)
 * `FILE_SHA1_HASH` This can be one of two things
-    * For verified uploads the SHA1-hash of the raw [file](#formats) being uploaded. For interactives, this should be the sha1 of the main file XORed with the sha1 of the video.
-    * For unverified uploads this needs to be some unique ID that will be used to refer to the file later. 
+    * If the edition id is know the SHA1-hash of the raw [file](#formats) being uploaded. For interactives, this should be the sha1 of the main file XORed with the sha1 of the video.
+    * Otherwise this needs to be some unique ID that will be used to refer to the file later. This needs to be a value that will be unique to the edition that gets created
 
 Send an HTTP request that looks like the following to *endpointurl*`/soap/apiv03/`, e.g. `https://test5823901.telemetry.com/soap/apiv03/`: 
 
