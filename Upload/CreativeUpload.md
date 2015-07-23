@@ -96,7 +96,6 @@ You will need to know the:
 
 * [`TICKET_STRING`](#generatetickets)
 * [`CREATIVE_ID`](../Platform/CampaignService.md#getcreativeseditions)
-* `FILE_SHA1_HASH` - which is the SHA1-hash of the raw [file](#formats) being uploaded.
 
 You must have a file matching [the upload specs](#formats). If you are uploading video, you will also need a thumbnail for some vendors.
 
@@ -134,7 +133,7 @@ This is very similar toteh verified upload process, but in order to simplify the
 
 * [`TICKET_STRING`](#generatetickets)
 
-Connect to https://*SmelterEndpoint*`/process.php` by looking up the SRV record `_smelter._tcp.telemetry.com` and send an HTTP POST
+Connect to https://*SmelterEndpoint*`/process_unverified.php` by looking up the SRV record `_smelter._tcp.telemetry.com` and send an HTTP POST
 of the content-type `multipart/form-data` with the following fields:
 
 * `token` - the [`TICKET_STRING`](#generatetickets) above
