@@ -11,9 +11,7 @@ The client is issued two encrypted tokens, at least 42 characters in length:
 
 They are also provided with:
 
-* `Endpoint URL`, which is combined with the above keys to form the destination HTTP POST URL, in the format:
-
-    `[ENDPOINT]/Dispatch/[KA COOKIE]/[KC COOKIE]`
+* `Endpoint URL`, which is combined with the above keys to form the destination HTTP POST URL, in the format: *ENDPOINT*`/Dispatch/`*Authentication Cookie*`/`*Circuit Cookie*
 
 Messages themselves should be URL-encoded.
 
@@ -22,7 +20,7 @@ Example client POST request:
     curl -i -X POST --data-urlencode "your message here" https://notify-sample.telemetry.com/Dispatch/KAxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzxyzzz/KCabcdeabcdeabcdeabcdeabcdeabcdeabcdeabcdee
 
 
-The response to this POST, if successfully handled, will be the body of the message from a [MailboxPost](MailboxPost) reply POST from the Master, in the format:
+The response to this POST, if successfully handled, will be the body of the message from a [MailboxPost](#mailboxpost) reply POST from the Master, in the format:
 
     [HEADERS]
     [HEADERS]
@@ -62,7 +60,7 @@ Both of these are combined in the following Mailbox calls:
 
 #### MailboxListen
 
-An HTTP POST to `[ENDPOINT]/MailboxListen/' subscribes to the Mailbox associated with the `secret`, and requires the following URL-encoded parameters:
+An HTTP POST to *ENDPOINT*`/MailboxListen` subscribes to the Mailbox associated with the `secret`, and requires the following URL-encoded parameters:
 
 * `secret` - the Secret Token described above
 * `last` - the ID of the last message seen (format of message IDs is described below)
@@ -106,12 +104,12 @@ These headers contain useful information for the Master, such as:
 * `X-Message-Id` - the ID of the message received; in the format: [timestamp][process number]_[count].[server]
 * `X-Telemetry-User` - the Telemetry Gateway user associated with the Client upload request
 
-**Note**: If no message has been sent by a User within 10 minutes of a /MailboxListen/ request, the endpoint will return a 502 "Bad Gateway" error. The Master should reconnect with another `MailboxListen` request.
+**Note**: If no message has been sent by a User within 10 minutes of a [MailboxListen](#mailboxlisten) request, the endpoint will return a 502 "Bad Gateway" error. The Master should reconnect with another [MailboxListen](#mailboxlisten) request.
 
 
 ### MailboxPost
 
-When the Master receives and handles a message, a reply should be made with an HTTP POST to `[ENDPOINT]/MailboxPost/`, along with the following URL-encoded parameters:
+When the Master receives and handles a message, a reply should be made with an HTTP POST to *ENDPOINT*`/MailboxPost`, along with the following URL-encoded parameters:
 
 * `secret` - the Secret Token described above
 * `id` - the ID of message we are replying to
