@@ -29,6 +29,36 @@ Example Output:
     }
 
 
+## getAdvertisersBrands
+
+Using the parameter `(campaignservice)getAdvertisersBrands` this will return a mapping of ID:Name for all Advertisers, Brands, and a mapping of BrandID:AdvertiserID for the Brands' advertiser, that are available to your Campaign Self Service account. An Advertiser ID will be required to create and update Campaign data.
+
+No input data is required for this function, besides the authentication cookie.
+
+Example Output:
+
+    {
+      "success":true,
+      "advertisers":
+      {
+        "800001":"Advertiser One",
+        "800002":"Advertiser Two"
+      },
+      "brands":
+      {
+        "970001":"Brand One",
+        "970002":"Brand Two",
+        "970003":"Brand Three"
+      },
+      "brandadvertisers":
+      {
+        "970001":"800001",
+        "970002":"800001",
+        "970003":"800002"
+      }
+    }
+
+
 ## getRegions
 
 Using the parameter `(campaignservice)getRegions` this will return a mapping of ID:Name for all Regions available to the provided Advertiser.
