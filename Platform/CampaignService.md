@@ -166,6 +166,49 @@ Example Output:
     }
     
 
+## getCampaignGrpFactors
+
+Using the parameter `(campaignservice)getCampaignGrpFactors` will return the GRP weekly factor configuration assigned to a campaign, if one is assigned. The returned data will include the start and end dates of the configuration as well as the factor applied to each week (using the week start date to describe the week).
+
+The HTTP POST argument (application/x-www-form-urlencoded) "campaignID" should be set to the campaign ID
+
+Example Input:
+
+    campaignID=642001
+
+Example Output Where no GRP Present:
+
+    {
+      "success":true,
+      "hasgrp":false
+    }
+    
+Example Output Where GRP is Present:
+    
+    {
+      "success":true,
+      "hasgrp":true,
+      "factors": {
+        "2015-12-27":"0",
+        "2016-01-03":"0",
+        "2016-01-10":"0",
+        "2016-01-17":"0",
+        "2016-01-24":"0",
+        "2016-01-31":"0.04",
+        "2016-02-07":"0.06",
+        "2016-02-14":"0.2",
+        "2016-02-21":"0.1",
+        "2016-02-28":"0.05",
+        "2016-03-06":"0.05",
+        "2016-03-13":"0.15",
+        "2016-03-20":"0.20",
+        "2016-03-27":"0.15"
+      },
+      "start":"2015-12-27",
+      "end":"2016-04-01",
+      "weekstart":"SUN"
+    }
+
 ## getCampaignPlanEnd
 
 Using the parameter `(campaignservice)getCampaignPlanEnd` will search all Placements' plans within the given campaign *after* the given threshold and return the date on which the final plan ends. If all plans end *before* the given threshold, the return valid will be 0. The return value is provided in the "end" variable of the output.
